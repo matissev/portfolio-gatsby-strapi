@@ -10,7 +10,7 @@ WORKDIR /home/gatsby-app
 # Install linux system dependencies for alpine
 RUN \
   apk add --no-cache python make curl g++ && \
-  apk add vips-dev fftw-dev --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing --repository http://dl-3.alpinelinux.org/alpine/edge/main && \
+  apk add vips-dev fftw-dev --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community --repository http://dl-3.alpinelinux.org/alpine/edge/main && \
   rm -fR /var/cache/apk/*
 
 # Install nodejs global packages
