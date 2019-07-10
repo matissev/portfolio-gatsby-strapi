@@ -7,15 +7,16 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
-      resolve: require.resolve(`./plugins/gatsby-source-strapi`),
+      resolve: `gatsby-source-strapi`,
       options: {
         apiURL: `http://${process.env.STRAPI_URL}`,
         queryLimit: 100,
-        contentTypes: [`pages`],
-        // Possibility to login with a strapi user, when content types are not publically available (optional).
+        contentTypes: [
+          `projet`
+        ],
         loginData: {
-          identifier: "Alex",
-          password: "qwerty",
+          identifier: "matisse",
+          password: "84266248",
         },
       },
     },

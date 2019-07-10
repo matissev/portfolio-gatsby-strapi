@@ -1,0 +1,34 @@
+{
+  "connection": "default",
+  "collectionName": "projet",
+  "info": {
+    "name": "projet",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "titre__en": {
+      "unique": true,
+      "required": true,
+      "type": "string"
+    },
+    "contenu__en": {
+      "required": true,
+      "type": "text"
+    },
+    "image": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": true
+    },
+    "titre__fr": {
+      "type": "string"
+    },
+    "contenu__fr": {
+      "type": "text"
+    }
+  }
+}

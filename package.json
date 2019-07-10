@@ -16,5 +16,6 @@
   },
   "bugs": {
     "url": "https://github.com/STUkh/gatsby-strapi-docker/issues"
-  }
+  },
+  "dependencies": {}
 }

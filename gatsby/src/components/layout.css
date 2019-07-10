@@ -22,6 +22,9 @@ section,
 summary {
   display: block;
 }
+header {
+  background-color: !pink;
+}
 audio,
 canvas,
 progress,

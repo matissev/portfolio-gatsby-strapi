@@ -1,3 +1,6 @@
+# Sharp dependency issue
+# https://github.com/gatsbyjs/gatsby/issues/11084
+
 version: '3'
 
 services:
@@ -16,7 +19,7 @@ services:
     environment:
       GATSBY_WEBPACK_PUBLICPATH: /
       STRAPI_URL: strapi:1337
-    command: ["./gatsby/wait-for-strapi.sh"]
+    command: ['bash -c "yarn add sharp gatsby-transformer-yaml --build-from-source && yarn run build"', "./gatsby/wait-for-strapi.sh"]
   strapi:
     build:
       context: ./strapi
