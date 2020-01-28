@@ -1,3 +1,4 @@
+
 #!/bin/sh
 set -ea
 
@@ -22,13 +23,17 @@ EXTRA_ARGS=${EXTRA_ARGS:-}
 if [ ! -f "$APP_NAME/package.json" ]
 then
     strapi new ${APP_NAME} --dbclient=$DATABASE_CLIENT --dbhost=$DATABASE_HOST --dbport=$DATABASE_PORT --dbsrv=$DATABASE_SRV --dbname=$DATABASE_NAME --dbusername=$DATABASE_USERNAME --dbpassword=$DATABASE_PASSWORD --dbssl=$DATABASE_SSL --dbauth=$DATABASE_AUTHENTICATION_DATABASE $EXTRA_ARGS
+    cd $APP_NAME
+    strapi build
+     # && strapi install graphql
+    cd ..
 elif [ ! -d "$APP_NAME/node_modules" ]
 then
     npm install --prefix ./$APP_NAME
 fi
 
 cd $APP_NAME
-strapi start &
+strapi develop &
 
 strapiPID=$!
 wait "$strapiPID"

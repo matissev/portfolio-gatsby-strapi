@@ -1,0 +1,12 @@
+extends layout
+
+block content
+	.projects-page
+		each project in projects
+			a.project(href="/projects/"+project.Slug)
+				article
+					h2= project.Titre_EN
+					span.category= project.categorie.Nom
+					if project.Image
+						img.projectThumbnail(src=config.hostName+project.Image.url)
+	.project-overlay

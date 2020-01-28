@@ -1,0 +1,32 @@
+- var br = '%0D%0A';
+- var mailto = 'mailto:' + enquiry.email + '?subject=RE: ' + enquiry.subject + '&body=' + br + br + enquiry.date + ', ' + enquiry.name + ' a écrit :' + br + br + enquiry.message;
+
+doctype html
+html(lang="en")
+	head
+	body(style='font-family: Helvetica Neue, Arial, sans-serif;')
+		h2(style='font-size: 22px; margin-bottom: 10px;') #{config.websiteName} : Vous avez reçu un message de #{enquiry.name}
+		br
+		.message(style='box-sizing: border-box; width: 100%; font-size: 14px; background: #F7F1F0; padding: 20px; margin-bottom: 10px;')
+			span.date(style='display:inline-block; margin-bottom: 20px;') #{enquiry.date}
+			br
+			span.subject(style='display:inline-block; font-style: italic;') Sujet : #{enquiry.subject}
+			br
+			p.text(style='display:inline-block; margin: 20px 0;') #{enquiry.message}
+			br
+			span.name(style='display:inline-block; margin-bottom: 5px;') #{enquiry.name}
+			br
+			a.mail(style='display:inline-block; color: black; margin-bottom: 5px;' href=mailto)= enquiry.email
+		br
+		a.reply(style='color: black; text-decoration: none;' href=mailto)
+			div(style='float:left; width:auto; font-size: 18px; padding: 10px 15px; background: #FFAD9F;')
+				| Répondre
+	style.
+		a.reply div {
+			transition: background 0.3s ease;
+			-webkit-transition: background 0.3s ease;
+		}
+
+		a.reply div:hover {
+			background: #F46856!important;
+		}

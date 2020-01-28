@@ -1,0 +1,46 @@
+doctype html
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		// .grid
+			.cols
+				- var x = 0;
+				while x < 12
+					.col
+					- x++
+			//- .big-rows
+			//- 	- var y = 0;
+			//- 	while y < 70
+			//- 		.row
+			//- 		- y++
+			//- .medium-rows
+			//- 	- var y = 0;
+			//- 	while y < 140
+			//- 		.row
+			//- 		- y++
+			.small-rows
+				- var y = 0;
+				while y < 280
+					.row
+					- y++
+		header.pageHeader
+			h1
+				a(href="/") Lundja Medjoub
+			nav
+				ul
+					li
+						a(href="/projects") Projects
+					li
+						a(href="/about") About
+					li
+						a(href="/contact") Contact
+		block content
+		block js
+			script(type="application/javascript" src="/javascripts/utilities.js")
+			script(async defer type="application/javascript" src="/javascripts/slides.js")
+			script(async defer type="application/javascript" src="/javascripts/audioplayer.js")
+			script(async defer type="application/javascript" src="/javascripts/videoplayer.js")
+			script(async defer type="application/javascript" src="/javascripts/ajax.js")
+			script(async defer type="application/javascript" src="/javascripts/mail.js")

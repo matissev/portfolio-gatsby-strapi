@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "page",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Texte_Accueil": {
+      "type": "text"
+    },
+    "Image_Accueil": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "Texte_A_Propos": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+extends layout
+
+block content
+	article.project-page.interactive
+		a.close-button(href="/projects") Back
+		header.projectHeader
+			time(datetime=project.Annee)= project.Annee
+			h2= project.Titre_EN
+			p.category= project.categorie.Nom
+		if project.Audio.length
+			aside.audioPlayer
+				.audioControls
+					p.playingTrackName 1. #{project.Audio[0].name}
+					.durationBar
+						progress(value="0" max="1")
+						small.currentTime 0:0
+						small.endTime 0:0
+					.generalControls
+						.playback
+							button.prev(type="button")
+								span Previous
+								svg.icon
+									use(xlink:href="/images/sprite.svg#prev")
+							button.playpause.paused(type="button")
+								span Play / Pause
+								svg.icon.playIcon
+									use(xlink:href="/images/sprite.svg#play")
+								svg.icon.pauseIcon
+									use(xlink:href="/images/sprite.svg#pause")
+							button.next(type="button")
+								span Next
+								svg.icon
+									use(xlink:href="/images/sprite.svg#next")
+						.trackCount
+							svg.icon
+								use(xlink:href="/images/sprite.svg#tracklist")
+							small.count 0
+						.volume
+							button.mute(type="button")
+								svg.icon
+									use(xlink:href="/images/sprite.svg#volume")
+							input.volumeSlider(type="range" value="0.8" min="0" max="1" step="0.01")
+					if project.Audio.length > 1
+						ol.tracklist
+							each audio, index in project.Audio
+								li.track(class=index?"":"selectedTrack")
+									a(href=config.hostName+audio.url)
+										span.trackName= audio.name
+										span.duration
+				audio
+					source(src=config.hostName+project.Audio[0].url type="audio/mpeg" preload="metadata")
+					Your browser does not support the audio element.
+		// if project.Soundcloud
+		// 	iframe(itemprop="embedUrl"
+		// 		src=project.Soundcloud+"&color=%232f0404&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=true&visual=true")
+		.slides-container
+			.slides !{project.Contenu_EN}
+			.sliderControls
+				.prev
+				.next

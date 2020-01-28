@@ -9,17 +9,29 @@ module.exports = {
     {
       resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: `http://${process.env.STRAPI_URL}`,
-        queryLimit: 100,
-        contentTypes: [
-          `projet`
-        ],
+        apiURL: `http://${process.env.STRAPI_URL}/graphql`,
+        queryLimit: 1000,
+        contentTypes: [`posts`, `users`],
         loginData: {
-          identifier: "matisse",
-          password: "84266248",
+          identifier: `user`,
+          password: `dataforgatsby`,
         },
+        // Possibility to login with a strapi user, when content types are not publically available (optional).
       },
     },
+    // {
+    //   resolve: `gatsby-source-strapi`,
+    //   options: {
+    //     apiURL: `http://localhost:1337`,
+    //     queryLimit: 1000, // Default to 100
+    //     contentTypes: [`projet`],
+    //     // Possibility to login with a strapi user, when content types are not publically available (optional).
+    //     loginData: {
+    //       identifier: "",
+    //       password: "",
+    //     },
+    //   },
+    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

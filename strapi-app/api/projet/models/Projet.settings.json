@@ -6,29 +6,49 @@
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "timestamps": [
+      "createdAt",
+      "updatedAt"
+    ]
   },
   "attributes": {
-    "titre__en": {
-      "unique": true,
-      "required": true,
-      "type": "string"
-    },
-    "contenu__en": {
-      "required": true,
-      "type": "text"
-    },
-    "image": {
-      "collection": "file",
-      "via": "related",
-      "plugin": "upload",
+    "Titre_FR": {
+      "type": "string",
       "required": true
     },
-    "titre__fr": {
+    "Contenu_FR": {
+      "type": "text"
+    },
+    "Image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "Contenu_EN": {
+      "type": "text"
+    },
+    "Titre_EN": {
+      "required": true,
       "type": "string"
     },
-    "contenu__fr": {
-      "type": "text"
+    "Slug": {
+      "required": true,
+      "type": "string"
+    },
+    "Audio": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "Soundcloud": {
+      "type": "string"
+    },
+    "categorie": {
+      "model": "categorie"
+    },
+    "Annee": {
+      "type": "integer",
+      "required": true
     }
   }
 }

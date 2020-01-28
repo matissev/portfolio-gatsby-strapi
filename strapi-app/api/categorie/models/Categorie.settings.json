@@ -1,0 +1,25 @@
+{
+  "connection": "default",
+  "collectionName": "Categorie",
+  "info": {
+    "name": "categorie",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Nom": {
+      "type": "string"
+    },
+    "Liste": {
+      "enum": [
+        "premiere",
+        "deuxieme",
+        "troisieme",
+        "quatrieme"
+      ],
+      "type": "enumeration"
+    }
+  }
+}
