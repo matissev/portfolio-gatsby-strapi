@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var router = express.Router();
+var router = express.Router({mergeParams: true});
 var config = require('../config');
 const { Remarkable } = require('remarkable');
 var md = new Remarkable({
@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 	  	}
 	  }`,
 	}).then(gqlres => {
-		res.render('projects', { projects: gqlres.data.projets, config: config });
+		res.render('projects', { projects: gqlres.data.projets, config: config, activePage: "projects" });
 	});
 
 });
@@ -84,46 +84,52 @@ function markdownRender(markdown) {
 	var inbetweenTokenRegex = /\n+\s*\+{3}\+*\s*\n+/g;
 	var lastTokenRegex = /\n\s*(\+{3,}|)\s*$/;
 
+	var slides = [];
+
 	if(markdown.match(/\S/) !== null) {
 		if(markdown.match(firstTokenRegex) !== null) {
-			markdown = markdown.replace(firstTokenRegex, "<section class=\"slide swiper-slide\">\n\n");
-		} else {
-			markdown = "<section class=\"slide swiper-slide\">" + markdown;
+			markdown = markdown.replace(firstTokenRegex, "");
 		}
 
 		if(markdown.match(lastTokenRegex) !== null) {
-			markdown = markdown.replace(lastTokenRegex, "\n\n</section>");
-		} else {
-			markdown = markdown + "</section>";
+			markdown = markdown.replace(lastTokenRegex, "");
 		}
 
-		markdown = markdown.replace(inbetweenTokenRegex, "\n\n</section><section class=\"slide swiper-slide\">\n\n");
+		slides = markdown.split(inbetweenTokenRegex);
 
-		markdown = markdown.replace(/§\[.*\]\(.*\)/g, function(m){
-			var videoName = m.match(/\[.*\]/)[0].slice(1,-1);
-			var videoUrl = m.match(/\(.*\)/)[0].slice(1,-1);
-			return '<video controls>' + videoName + '<source src="' + videoUrl + '" type="video/mp4">Your browser does not support the video tag.</video>';
-		});
+		for (var i = 0; i < slides.length; i++) {
+			var foundVideos = slides[i].match(/§\[.*\]\(.*\)/g);
+			var foundImages = slides[i].match(/!\[.*\]\(.*\)/g);
 
-		markdown = markdown.replace(/!\[.*\]\(.*\)/g, function(m){
-			if(m.match(/\".*\"/) !== null) {
-				var imageTitle = m.match(/\".*\"/)[0].slice(1,-1);
-				m = m.replace(/\".*\"/, "");
-			}
-			var imageAlt = m.match(/\[.*\]/)[0].slice(1,-1);
-			var imageUrl = m.match(/\(.*\)/)[0].slice(1,-1);
+			if(foundVideos) {
+				// If any video has been found, take the first one and create a slide
+				slides[i] = {
+					type: "video",
+					name: foundVideos[0].match(/\[.*\]/)[0].slice(1,-1),
+					url: foundVideos[0].match(/\(.*\)/)[0].slice(1,-1)
+				};
+			} else if (foundImages) {
+				var title = foundImages[0].match(/\".*\"/);
+				title = title ? title[0].slice(1,-1) : "";
 
-			if(imageTitle) {
-				return '<figure><img src="' + imageUrl + '" alt="' + imageAlt + '" title="' + imageTitle + '"><figcaption>' + imageTitle + '</figcaption></figure>';
+				// If any image has been found, take the first one and create a slide
+				slides[i] = {
+					type: "image",
+					title: title,
+					alt: foundImages[0].match(/\[.*\]/)[0].slice(1,-1),
+					url: foundImages[0].match(/\(.*\)/)[0].slice(1,-1)
+				};
 			} else {
-				return '<figure><img src="' + imageUrl + '" alt="' + imageAlt + '"></figure>';
+				// Otherwise, just render the markdown
+				slides[i] = {
+					type: "html",
+					content: md.render(slides[i])
+				};
 			}
-		});
-
-		markdown = md.render(markdown);
+		}
 	}
 
-	return markdown;
+	return slides;
 }
 
 module.exports = router;

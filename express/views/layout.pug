@@ -2,6 +2,7 @@ doctype html
 html
 	head
 		title= title
+		meta(name='viewport' content='width=device-width, initial-scale=1')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 	body
 		// .grid
@@ -31,16 +32,17 @@ html
 			nav
 				ul
 					li
-						a(href="/projects") Projects
+						a(href="/projects" class=(activePage == 'projects' ? 'active' : null)) Projects
 					li
-						a(href="/about") About
+						a(href="/about" class=(activePage == 'about' ? 'active' : null)) About
 					li
-						a(href="/contact") Contact
+						a(href="/contact" class=(activePage == 'contact' ? 'active' : null)) Contact
 		block content
 		block js
 			script(type="application/javascript" src="/javascripts/utilities.js")
+			script(async defer type="application/javascript" src="/javascripts/libs/swiper.js")
 			script(async defer type="application/javascript" src="/javascripts/slides.js")
 			script(async defer type="application/javascript" src="/javascripts/audioplayer.js")
 			script(async defer type="application/javascript" src="/javascripts/videoplayer.js")
-			script(async defer type="application/javascript" src="/javascripts/ajax.js")
+			//- script(async defer type="application/javascript" src="/javascripts/ajax.js")
 			script(async defer type="application/javascript" src="/javascripts/mail.js")

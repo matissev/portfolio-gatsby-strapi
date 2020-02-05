@@ -1,15 +1,18 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "page",
   "info": {
     "name": "page",
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "timestamps": [
+      "createdAt",
+      "updatedAt"
+    ]
   },
   "attributes": {
-    "Texte_Accueil": {
+    "Texte_Accueil_FR": {
       "type": "text"
     },
     "Image_Accueil": {
@@ -17,7 +20,13 @@
       "via": "related",
       "plugin": "upload"
     },
-    "Texte_A_Propos": {
+    "Texte_A_Propos_FR": {
+      "type": "text"
+    },
+    "Texte_Accueil_EN": {
+      "type": "text"
+    },
+    "Texte_A_Propos_EN": {
       "type": "text"
     }
   }

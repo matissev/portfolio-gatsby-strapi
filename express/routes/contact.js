@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var router = express.Router();
+var router = express.Router({mergeParams: true});
 var config = require('../config');
 var nodemailer = require('nodemailer');
 var pug = require('pug');
@@ -25,7 +25,7 @@ const fetch = createApolloFetch({
 
 /* GET contact page. */
 router.get('/', function(req, res, next) {
-	res.render('contact', {responses: {}});
+	res.render('contact', {responses: {}, activePage: "contact"});
 });
 
 // https://www.youtube.com/watch?v=8DgJJuxWA3o&list=PLqkA8i556jh96bPL9neuaN8Wx_VLGLNDT&index=15

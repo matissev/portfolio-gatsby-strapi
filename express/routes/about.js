@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var router = express.Router();
+var router = express.Router({mergeParams: true});
 var config = require('../config');
 const { Remarkable } = require('remarkable');
 var md = new Remarkable({
@@ -15,15 +15,16 @@ const fetch = createApolloFetch({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+	console.log(res.locals.language);
 	fetch({
 	  query: `{
 	  	pages {
-			Texte_A_Propos
+			Texte_A_Propos_`+ res.locals.language + `
 	  	}
 	  }`,
 	}).then(gqlres => {
-		gqlres.data.pages[0].Texte_A_Propos = md.render(gqlres.data.pages[0].Texte_A_Propos);
-		res.render('about', { pages: gqlres.data.pages[0], config });
+		gqlres.data.pages[0].Texte_A_Propos = md.render(gqlres.data.pages[0]['Texte_A_Propos_' + res.locals.language]);
+		res.render('about', { pages: gqlres.data.pages[0], config, activePage: "about" });
 	});
 });
 

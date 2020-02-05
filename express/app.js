@@ -4,11 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
+var config = require('./config');
 
 var homeRouter = require('./routes/home');
 var projectsRouter = require('./routes/projects');
 var aboutRouter = require('./routes/about');
 var contactRouter = require('./routes/contact');
+
+var languageRouter = express.Router();
 
 var app = express();
 
@@ -23,10 +26,21 @@ app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', homeRouter);
-app.use('/projects', projectsRouter);
-app.use('/about', aboutRouter);
-app.use('/contact', contactRouter);
+languageRouter.route('/:language(en|)').get(function (req, res, next) {
+	if(req.params.language === "") {
+		req.params.language = "fr";
+	}
+
+	res.locals.language = req.params.language.toUpperCase();
+	next();
+});
+
+languageRouter.use('/', homeRouter);
+languageRouter.use('/projects', projectsRouter);
+languageRouter.use('/about', aboutRouter);
+languageRouter.use('/contact', contactRouter);
+
+app.use('/', languageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

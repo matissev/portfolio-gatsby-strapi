@@ -2,7 +2,10 @@ extends layout
 
 block content
 	article.project-page.interactive
-		a.close-button(href="/projects") Back
+		a.backButton(href="/projects")
+			span Back
+			svg.icon
+				use(xlink:href="/images/sprite.svg#back-button")
 		header.projectHeader
 			time(datetime=project.Annee)= project.Annee
 			h2= project.Titre_EN
@@ -53,8 +56,41 @@ block content
 		// if project.Soundcloud
 		// 	iframe(itemprop="embedUrl"
 		// 		src=project.Soundcloud+"&color=%232f0404&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=true&visual=true")
-		.slides-container
-			.slides !{project.Contenu_EN}
-			.sliderControls
-				.prev
-				.next
+		.swiper-container
+			.swiper-button-prev
+			.swiper-button-next
+			.swiper-wrapper
+				each slide in project.Contenu_EN
+					.swiper-slide
+						if slide.type === "video"
+							.videoPlayer
+								video
+									| #{slide.name}
+									source(src="http://mbp-matisse.local:1337"+slide.url type="video/mp4")
+									| Your browser does not support the video tag.
+								.videoControlsWrapper
+									.videoControls.swiper-no-swiping
+										.playback
+											button.playpause.paused(type="button")
+												span Play / Pause
+												svg.icon.playIcon
+													use(xlink:href="/images/sprite.svg#play")
+												svg.icon.pauseIcon
+													use(xlink:href="/images/sprite.svg#pause")
+										.durationBar
+											progress(value="0" max="1")
+											small.currentTime 0:0
+											small.endTime 0:0
+										.volume
+											button.mute(type="button")
+												svg.icon
+													use(xlink:href="/images/sprite.svg#volume")
+											input.volumeSlider(type="range" value="0.8" min="0" max="1" step="0.01")
+						if slide.type === "image"
+							figure
+								img(src=config.hostName+slide.url alt=slide.alt title=slide.title)
+								figcaption= slide.title
+						if slide.type === "html"
+							.textContent
+								| !{slide.content}
+			.swiper-pagination
