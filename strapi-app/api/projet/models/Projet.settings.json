@@ -31,7 +31,7 @@
       "required": true,
       "type": "string"
     },
-    "Slug": {
+    "Slug_EN": {
       "required": true,
       "type": "string"
     },
@@ -49,6 +49,10 @@
     "Annee": {
       "type": "integer",
       "required": true
+    },
+    "Slug_FR": {
+      "required": true,
+      "type": "string"
     }
   }
 }

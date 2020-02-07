@@ -5,30 +5,28 @@ block content
 		form.contact-form(method='post' action='contact' onsubmit='return submitEnquiry(this);' autocomplete='on')
 			input.action(type='hidden', name='action', value='contact')
 			.field
-				label(for='name') Nom
+				label(for='name') #{locale.contact.form.name}
 				input#name(type='text', name='name')
 			.field.email
-				label(for='email') Email
+				label(for='email') #{locale.contact.form.email}
 				input#email(type='email', name='email')
 			.field
-				label(for='subject') Sujet
+				label(for='subject') #{locale.contact.form.subject}
 				input#subject(type='text', name='subject')
 			.field
-				label(for='message') Message
+				label(for='message') #{locale.contact.form.message}
 				textarea#message(name='message')
 			button(type='submit')
-				span.button-text Envoyer
+				span.button-text #{locale.contact.form.send}
 				span.loader
 			.result-box
 				if responses.success
-					p.result-message.success Votre message a été envoyé, merci.
+					p.result-message.success #{locale.contact.form.responses.success}
 				if responses.invalidEmail
-					p.result-message.error Erreur&nbsp;: Veuillez entrer une adresse email valide.
-				if responses.invalidPhone
-					p.result-message.error Erreur&nbsp;: Veuillez entrer un numéro de téléphone valide.
+					p.result-message.error #{locale.contact.form.responses.invalidEmail}
 				if responses.missingFields
-					p.result-message.error Erreur&nbsp;: Des champs requis n'ont pas été remplis
+					p.result-message.error #{locale.contact.form.responses.missingFields}
 				if responses.invalidCharacters
-					p.result-message.error Erreur&nbsp;: L’email contient des caractères invalides.
+					p.result-message.error #{locale.contact.form.responses.invalidCharacters}
 				if responses.failure
-					p.result-message.failure Erreur&nbsp;: Votre message n’a pas pu être envoyé, veuillez réessayer plus tard.
+					p.result-message.failure #{locale.contact.form.responses.failure}

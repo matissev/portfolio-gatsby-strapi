@@ -15,20 +15,33 @@ const fetch = createApolloFetch({
 
 /* GET home page. */
 router.get('', function(req, res, next) {
-	console.log(res.locals.language);
-	
+	var LNG = res.locals.locale.LNG;
+	var locales = res.locals.locales;
+
+	for (var locale in locales) {
+		locales[locale].matchingRoute = locales[locale].route + locales[locale].home.route;
+	}
+
 	fetch({
 	  query: `{
 	  	pages {
-			Texte_Accueil_`+ res.locals.language + `,
+			Texte_Accueil_` + LNG + `,
 	  		Image_Accueil {
 	  			url
 	  		}
 	  	}
 	  }`,
 	}).then(gqlres => {
-		gqlres.data.pages[0].Texte_Accueil = md.render(gqlres.data.pages[0]['Texte_Accueil_' + res.locals.language]);
-		res.render('home', { home: gqlres.data.pages[0], config, activePage: "home" });
+		var page = gqlres.data.pages[0];
+		
+		page.Texte_Accueil = md.render(page['Texte_Accueil_' + LNG]);
+		res.render('home', {
+			home: page,
+			config: config,
+			activePage: "home",
+			locales: locales,
+			locale: res.locals.locale
+		});
 	});
 });
 

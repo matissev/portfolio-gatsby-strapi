@@ -2,13 +2,13 @@ extends layout
 
 block content
 	article.project-page.interactive
-		a.backButton(href="/projects")
+		a.backButton(href=locale.route + locale.projects.route)
 			span Back
 			svg.icon
 				use(xlink:href="/images/sprite.svg#back-button")
 		header.projectHeader
 			time(datetime=project.Annee)= project.Annee
-			h2= project.Titre_EN
+			h2= project.Titre
 			p.category= project.categorie.Nom
 		if project.Audio.length
 			aside.audioPlayer
@@ -60,7 +60,7 @@ block content
 			.swiper-button-prev
 			.swiper-button-next
 			.swiper-wrapper
-				each slide in project.Contenu_EN
+				each slide in project.Contenu
 					.swiper-slide
 						if slide.type === "video"
 							.videoPlayer

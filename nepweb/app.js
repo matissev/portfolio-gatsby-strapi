@@ -5,14 +5,8 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 
-var locales = require('./locales/locales');
-
-var homeRouter = require('./routes/home');
-var projectsRouter = require('./routes/projects');
-var aboutRouter = require('./routes/about');
-var contactRouter = require('./routes/contact');
-
-var languageRouter = express.Router();
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -27,31 +21,8 @@ app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-detectLanguage = function (req, res, next) {
-	var path = req.originalUrl.split('/');
-
-	res.locals.locales = locales;
-
-	if(path[1].length === 2) {
-		res.locals.locale = locales[path[1]];
-	} else {
-		res.locals.locale = locales.fr;
-	}
-
-	next();
-};
-
-app.use(locales.en.route + locales.en.home.route, detectLanguage, homeRouter);
-app.use(locales.fr.home.route, detectLanguage, homeRouter);
-
-app.use(locales.en.route + locales.en.projects.route, projectsRouter);
-app.use(locales.fr.projects.route, projectsRouter);
-
-app.use(locales.en.route + locales.en.about.route, aboutRouter);
-app.use(locales.fr.about.route, aboutRouter);
-
-app.use(locales.en.route + locales.en.contact.route, contactRouter);
-app.use(locales.fr.contact.route, contactRouter);
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

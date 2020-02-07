@@ -13,13 +13,20 @@ const fetch = createApolloFetch({
   uri: 'http://strapi:1337/graphql',
 });
 
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
+	var LNG = res.locals.locale.LNG;
+	var locales = res.locals.locales;
+
+	for (var locale in locales) {
+		locales[locale].matchingRoute = locales[locale].route + locales[locale].projects.route;
+	}
+
 	fetch({
 	  query: `{
 	  	projets {
-	  		Slug,
-	  		Titre_EN,
+	  		Slug_` + LNG + `,
+	  		Titre_` + LNG + `,
 	  		categorie {
 	  			Nom
 	  		},
@@ -29,7 +36,20 @@ router.get('/', function(req, res, next) {
 	  	}
 	  }`,
 	}).then(gqlres => {
-		res.render('projects', { projects: gqlres.data.projets, config: config, activePage: "projects" });
+		var projets = gqlres.data.projets;
+
+		for (var i = 0; i < projets.length; i++) {
+			projets[i].Slug = projets[i]['Slug_' + LNG];
+			projets[i].Titre = projets[i]['Titre_' + LNG];
+		}
+
+		res.render('projects', {
+			projects: projets,
+			config: config,
+			activePage: "projects",
+			locales: locales,
+			locale: res.locals.locale
+		});
 	});
 
 });
@@ -37,12 +57,20 @@ router.get('/', function(req, res, next) {
 
 /* GET home page. */
 router.get('/:id', function(req, res, next) {
+	var LNG = res.locals.locale.LNG;
+	var locales = res.locals.locales;
+
+	var allLngSlugsQuery = "";
+
+	for (var locale in locales) {
+		allLngSlugsQuery += `Slug_` + locales[locale].LNG + `,`;
+	}
 
 	fetch({
 	  query: `{
-	  	projets(where: {Slug : "`+ req.params.id +`" }) {
-	  		Slug,
-	  		Titre_EN,
+	  	projets(where: {Slug_` + LNG + ` : "`+ req.params.id +`" }) {
+	  		` + allLngSlugsQuery + `
+	  		Titre_` + LNG + `,
 			categorie {
 	  			Nom
 	  		},
@@ -57,12 +85,16 @@ router.get('/:id', function(req, res, next) {
 	  		Audio {
 	  			url
 	  		},
-	  		Contenu_EN,
+	  		Contenu_` + LNG + `,
 	  		Annee
 	  	}
 	  }`,
 	}).then(gqlres => {
 		var projet = gqlres.data.projets[0];
+
+		for (var locale in locales) {
+			locales[locale].matchingRoute = locales[locale].route + locales[locale].projects.route + "/" + projet["Slug_" + locales[locale].LNG];
+		}
 
 		// This suppresses the file extension of all audio files
 		if(projet.Audio) {
@@ -71,10 +103,19 @@ router.get('/:id', function(req, res, next) {
 			}			
 		}
 
-		if(projet.Contenu_EN) {
-			projet.Contenu_EN = markdownRender(projet.Contenu_EN);
-		}
-		res.render('project', { project: projet, config: config });
+		projet.Slug = projet["Slug_" + LNG];
+		projet.Titre = projet["Titre_" + LNG];
+
+		projet.Contenu = markdownRender(projet["Contenu_" + LNG]);
+
+		res.render('project', {
+			project: projet,
+			config: config,
+			activePage: "project",
+			locales: locales,
+			locale: res.locals.locale,
+			noLangPath: res.locals.noLangPath
+		});
 	});
 
 });

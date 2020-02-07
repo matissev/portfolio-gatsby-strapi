@@ -21,6 +21,7 @@
     "remarkable": "^2.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "webpack-dev-middleware": "^3.7.2"
   }
 }

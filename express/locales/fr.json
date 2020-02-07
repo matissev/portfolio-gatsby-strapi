@@ -1,0 +1,40 @@
+{
+	"lng": "fr",
+	"LNG": "FR",
+	"route": "",
+	"language": "Français",
+	"home": {
+		"route": "/",
+		"title": "",
+		"description": "This is the description for Home"
+	},
+	"projects": {
+		"route": "/projets",
+		"title": "Projets",
+		"description": "This is the description for Projects"
+	},
+	"about": {
+		"route": "/a-propos",
+		"title": "À Propos",
+		"description": "This is the description for About"
+	},
+	"contact": {
+		"route": "/contact",
+		"title": "Contact",
+		"description": "This is the description for Contact",
+		"form": {
+			"name": "Nom",
+			"email": "Email",
+			"subject": "Sujet",
+			"message": "Message",
+			"send": "Envoyer",
+			"responses": {
+				"success": "Votre message a été envoyé, merci.",
+				"failure": "Erreur&nbsp;: Votre message n’a pas pu être envoyé, veuillez réessayer plus tard.",
+				"invalidEmail": "Erreur&nbsp;: Veuillez entrer une adresse email valide.",
+				"invalidCharacters": "Erreur&nbsp;: L’email contient des caractères invalides.",
+				"missingFields": "Erreur&nbsp;: Des champs requis n’ont pas été remplis."
+			}
+		}
+	}
+}

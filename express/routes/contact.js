@@ -25,7 +25,19 @@ const fetch = createApolloFetch({
 
 /* GET contact page. */
 router.get('/', function(req, res, next) {
-	res.render('contact', {responses: {}, activePage: "contact"});
+	var locales = res.locals.locales;
+
+	for (var locale in locales) {
+		locales[locale].matchingRoute = locales[locale].route + locales[locale].contact.route;
+	}
+
+	res.render('contact', {
+		responses: {},
+		activePage: "contact",
+		config: config,
+		locales: locales,
+		locale: res.locals.locale
+	});
 });
 
 // https://www.youtube.com/watch?v=8DgJJuxWA3o&list=PLqkA8i556jh96bPL9neuaN8Wx_VLGLNDT&index=15

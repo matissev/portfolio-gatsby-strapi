@@ -3,9 +3,9 @@ extends layout
 block content
 	.projects-page
 		each project in projects
-			a.project(href="/projects/"+project.Slug)
+			a.project(href=locale.route + locale.projects.route + "/" + project.Slug)
 				article
-					h2= project.Titre_EN
+					h2= project.Titre
 					span.category= project.categorie.Nom
 					if project.Image
 						img.projectThumbnail(src=config.hostName+project.Image.url)

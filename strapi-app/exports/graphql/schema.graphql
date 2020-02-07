@@ -179,11 +179,12 @@ input editProjetInput {
   Image: ID
   Contenu_EN: String
   Titre_EN: String
-  Slug: String
+  Slug_EN: String
   Audio: [ID]
   Soundcloud: String
   categorie: ID
   Annee: Int
+  Slug_FR: String
 }
 
 input editRoleInput {
@@ -235,7 +236,7 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Categorie | createCategoriePayload | updateCategoriePayload | deleteCategoriePayload | CategorieConnection | CategorieAggregator | CategorieGroupBy | CategorieConnection_id | CategorieConnectionId | CategorieConnectionCreatedAt | CategorieConnectionUpdatedAt | CategorieConnectionNom | CategorieConnectionListe | Page | createPagePayload | updatePagePayload | deletePagePayload | PageConnection | PageAggregator | PageGroupBy | PageConnection_id | PageConnectionId | PageConnectionCreatedAt | PageConnectionUpdatedAt | PageConnectionTexte_Accueil_FR | PageConnectionImage_Accueil | PageConnectionTexte_A_Propos_FR | PageConnectionTexte_Accueil_EN | PageConnectionTexte_A_Propos_EN | Projet | createProjetPayload | updateProjetPayload | deleteProjetPayload | ProjetConnection | ProjetAggregator | ProjetGroupBy | ProjetConnection_id | ProjetConnectionId | ProjetConnectionCreatedAt | ProjetConnectionUpdatedAt | ProjetConnectionTitre_FR | ProjetConnectionContenu_FR | ProjetConnectionImage | ProjetConnectionContenu_EN | ProjetConnectionTitre_EN | ProjetConnectionSlug | ProjetConnectionSoundcloud | ProjetConnectionCategorie | ProjetConnectionAnnee | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionReceivesEmails
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Categorie | createCategoriePayload | updateCategoriePayload | deleteCategoriePayload | CategorieConnection | CategorieAggregator | CategorieGroupBy | CategorieConnection_id | CategorieConnectionId | CategorieConnectionCreatedAt | CategorieConnectionUpdatedAt | CategorieConnectionNom | CategorieConnectionListe | Page | createPagePayload | updatePagePayload | deletePagePayload | PageConnection | PageAggregator | PageGroupBy | PageConnection_id | PageConnectionId | PageConnectionCreatedAt | PageConnectionUpdatedAt | PageConnectionTexte_Accueil_FR | PageConnectionImage_Accueil | PageConnectionTexte_A_Propos_FR | PageConnectionTexte_Accueil_EN | PageConnectionTexte_A_Propos_EN | Projet | createProjetPayload | updateProjetPayload | deleteProjetPayload | ProjetConnection | ProjetAggregator | ProjetGroupBy | ProjetConnection_id | ProjetConnectionId | ProjetConnectionCreatedAt | ProjetConnectionUpdatedAt | ProjetConnectionTitre_FR | ProjetConnectionContenu_FR | ProjetConnectionImage | ProjetConnectionContenu_EN | ProjetConnectionTitre_EN | ProjetConnectionSlug_EN | ProjetConnectionSoundcloud | ProjetConnectionCategorie | ProjetConnectionAnnee | ProjetConnectionSlug_FR | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionReceivesEmails
 
 type Mutation {
   createCategorie(input: createCategorieInput): createCategoriePayload
@@ -366,10 +367,11 @@ type Projet {
   Image: UploadFile
   Contenu_EN: String
   Titre_EN: String!
-  Slug: String!
+  Slug_EN: String!
   Soundcloud: String
   categorie: Categorie
   Annee: Int!
+  Slug_FR: String!
   Audio(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
 }
 
@@ -424,7 +426,12 @@ type ProjetConnectionImage {
   connection: ProjetConnection
 }
 
-type ProjetConnectionSlug {
+type ProjetConnectionSlug_EN {
+  key: String
+  connection: ProjetConnection
+}
+
+type ProjetConnectionSlug_FR {
   key: String
   connection: ProjetConnection
 }
@@ -459,10 +466,11 @@ type ProjetGroupBy {
   Image: [ProjetConnectionImage]
   Contenu_EN: [ProjetConnectionContenu_EN]
   Titre_EN: [ProjetConnectionTitre_EN]
-  Slug: [ProjetConnectionSlug]
+  Slug_EN: [ProjetConnectionSlug_EN]
   Soundcloud: [ProjetConnectionSoundcloud]
   categorie: [ProjetConnectionCategorie]
   Annee: [ProjetConnectionAnnee]
+  Slug_FR: [ProjetConnectionSlug_FR]
 }
 
 input ProjetInput {
@@ -471,11 +479,12 @@ input ProjetInput {
   Image: ID
   Contenu_EN: String
   Titre_EN: String!
-  Slug: String!
+  Slug_EN: String!
   Audio: [ID]
   Soundcloud: String
   categorie: ID
   Annee: Int!
+  Slug_FR: String!
 }
 
 type Query {

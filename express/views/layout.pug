@@ -1,11 +1,18 @@
 doctype html
 html
 	head
-		title= title
+		//- title Lundja Medjoub
+		//- 	- console.log(activePage);
+		//- 	if activePage == "project"
+		//- 		|  | #{pageTitle}
+		//- 	else
+		//- 		- var pageTitle = locale[activePage].title;
+		//- 		if pageTitle.length
+		//- 			|  | #{pageTitle}
 		meta(name='viewport' content='width=device-width, initial-scale=1')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 	body
-		// .grid
+		//- .grid
 			.cols
 				- var x = 0;
 				while x < 12
@@ -28,15 +35,19 @@ html
 					- y++
 		header.pageHeader
 			h1
-				a(href="/") Lundja Medjoub
+				a(href=locale.route + locale.home.route) Lundja Medjoub
 			nav
+				ul.langSelector
+					each lang in locales
+						li
+							a(href=lang.matchingRoute class=(lang.lng == locale.lng ? 'active' : null)) #{lang.LNG}
 				ul
 					li
-						a(href="/projects" class=(activePage == 'projects' ? 'active' : null)) Projects
+						a(href=locale.route + locale.projects.route class=(activePage == 'projects' ? 'active' : null)) #{locale.projects.title}
 					li
-						a(href="/about" class=(activePage == 'about' ? 'active' : null)) About
+						a(href=locale.route + locale.about.route class=(activePage == 'about' ? 'active' : null)) #{locale.about.title}
 					li
-						a(href="/contact" class=(activePage == 'contact' ? 'active' : null)) Contact
+						a(href=locale.route + locale.contact.route class=(activePage == 'contact' ? 'active' : null)) #{locale.contact.title}
 		block content
 		block js
 			script(type="application/javascript" src="/javascripts/utilities.js")

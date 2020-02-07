@@ -15,16 +15,28 @@ const fetch = createApolloFetch({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	console.log(res.locals.language);
+	var LNG = res.locals.locale.LNG;
+	var locales = res.locals.locales;
+
+	for (var locale in locales) {
+		locales[locale].matchingRoute = locales[locale].route + locales[locale].about.route;
+	}
+
 	fetch({
 	  query: `{
 	  	pages {
-			Texte_A_Propos_`+ res.locals.language + `
+			Texte_A_Propos_`+ LNG + `
 	  	}
 	  }`,
 	}).then(gqlres => {
-		gqlres.data.pages[0].Texte_A_Propos = md.render(gqlres.data.pages[0]['Texte_A_Propos_' + res.locals.language]);
-		res.render('about', { pages: gqlres.data.pages[0], config, activePage: "about" });
+		gqlres.data.pages[0].Texte_A_Propos = md.render(gqlres.data.pages[0]['Texte_A_Propos_' + LNG]);
+		res.render('about', {
+			pages: gqlres.data.pages[0],
+			config: config,
+			activePage: "about",
+			locales: locales,
+			locale: res.locals.locale
+		});
 	});
 });
 
