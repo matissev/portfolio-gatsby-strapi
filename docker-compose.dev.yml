@@ -1,25 +1,11 @@
 version: '3'
 services:
   express:
-    command: ["npm", "run", "dev"]
+    command: ["npm", "run", "start"]
     volumes:
       - ./express:/usr/src/app
     stdin_open: true
     tty: true
-  # nextjs:
-  #   command: ["npm", "run", "dev"]
-  #   volumes:
-  #     - ./nextjs/pages:/usr/src/app/pages
-  #   stdin_open: true
-  #   tty: true
-  # gatsby:
-  #   command: ["./wait-for-strapi.sh", "gatsby", "develop", "--no-cache", "--host", "0.0.0.0"]
-  #   volumes:
-  #     - ./gatsby/src:/home/gatsby-app/src
-  #   environment:
-  #     NODE_ENV: development
-  #   stdin_open: true
-  #   tty: true
   strapi:
     stdin_open: true
     tty: true

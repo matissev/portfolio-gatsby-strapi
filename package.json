@@ -20,7 +20,8 @@
   "dependencies": {
     "next": "^9.0.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {}
 }

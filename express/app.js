@@ -5,6 +5,12 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 
+// var webpack = require('webpack');
+// var config = require('./webpack.dev.js');
+// var compiler = webpack(config);
+
+// var webpackDevMiddleware = require("webpack-dev-middleware")(compiler, config.devServer);
+
 var locales = require('./locales/locales');
 
 var homeRouter = require('./routes/home');
@@ -15,6 +21,8 @@ var contactRouter = require('./routes/contact');
 var languageRouter = express.Router();
 
 var app = express();
+
+// app.use(webpackDevMiddleware);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
