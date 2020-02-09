@@ -16,34 +16,6 @@ services:
       - "3000:3000"
     environment:
       EXPRESS_ROOTPATH: /`
-  # nextjs:
-  #   working_dir: /usr/src/app
-  #   build:
-  #     context: ./nextjs
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - strapi
-  #     - db
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     NEXTJS_ROOTPATH: /
-  # gatsby:
-  #   working_dir: /home/gatsby-app
-  #   build:
-  #     context: ./gatsby
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - strapi
-  #     - db
-  #   ports:
-  #     - "8000:8000"
-  #     - "9929:9929"
-  #     - "9230:9230"
-  #   environment:
-  #     GATSBY_WEBPACK_PUBLICPATH: /
-  #     STRAPI_URL: strapi:1337
-  #   command: ['bash -c "yarn add sharp gatsby-transformer-yaml --build-from-source && yarn run build"', "./gatsby/wait-for-strapi.sh"]
   strapi:
     build:
       context: ./strapi
@@ -64,7 +36,7 @@ services:
       - 1337:1337
     volumes:
       - ./strapi-app:/usr/src/api/strapi-app
-#      - /usr/src/api/strapi-app/node_modules
+     # - /usr/src/api/strapi-app/node_modules
     depends_on:
       - db
     restart: always

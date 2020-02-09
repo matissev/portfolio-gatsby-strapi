@@ -72,7 +72,7 @@ router.get('/:id', function(req, res, next) {
 	  		` + allLngSlugsQuery + `
 	  		Titre_` + LNG + `,
 			categorie {
-	  			Nom
+	  			Nom` + LNG + `
 	  		},
 	  		Audio {
 	  			url,
@@ -105,6 +105,7 @@ router.get('/:id', function(req, res, next) {
 
 		projet.Slug = projet["Slug_" + LNG];
 		projet.Titre = projet["Titre_" + LNG];
+		projet.categorie.Nom = projet.categorie["Nom_" + LNG];
 
 		projet.Contenu = markdownRender(projet["Contenu_" + LNG]);
 

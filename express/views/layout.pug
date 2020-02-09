@@ -50,10 +50,4 @@ html
 						a(href=locale.route + locale.contact.route class=(activePage == 'contact' ? 'active' : null)) #{locale.contact.title}
 		block content
 		block js
-			script(type="application/javascript" src="/javascripts/utilities.js")
-			script(async defer type="application/javascript" src="/javascripts/libs/swiper.js")
-			script(async defer type="application/javascript" src="/javascripts/slides.js")
-			script(async defer type="application/javascript" src="/javascripts/audioplayer.js")
-			script(async defer type="application/javascript" src="/javascripts/videoplayer.js")
-			//- script(async defer type="application/javascript" src="/javascripts/ajax.js")
-			script(async defer type="application/javascript" src="/javascripts/mail.js")
+			script(type="application/javascript" src="/javascripts/bundle.js")
