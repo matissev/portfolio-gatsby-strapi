@@ -6,11 +6,15 @@
     "description": ""
   },
   "options": {
-    "timestamps": true
+    "timestamps": [
+      "createdAt",
+      "updatedAt"
+    ]
   },
   "attributes": {
-    "Nom": {
-      "type": "string"
+    "Nom_FR": {
+      "type": "string",
+      "required": true
     },
     "Liste": {
       "enum": [
@@ -20,6 +24,10 @@
         "quatrieme"
       ],
       "type": "enumeration"
+    },
+    "Nom_EN": {
+      "type": "string",
+      "required": true
     }
   }
 }

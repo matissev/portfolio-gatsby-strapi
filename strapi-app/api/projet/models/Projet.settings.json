@@ -53,6 +53,37 @@
     "Slug_FR": {
       "required": true,
       "type": "string"
+    },
+    "Description_Img_FR": {
+      "required": true,
+      "maxLength": 125,
+      "type": "string"
+    },
+    "Description_Img_EN": {
+      "required": true,
+      "maxLength": 125,
+      "type": "string"
+    },
+    "Titre_Img_FR": {
+      "maxLength": 64,
+      "required": true,
+      "type": "string"
+    },
+    "Titre_Img_EN": {
+      "maxLength": 64,
+      "required": true,
+      "type": "string"
+    },
+    "Description_FR": {
+      "required": true,
+      "maxLength": 160,
+      "type": "text",
+      "default": ""
+    },
+    "Description_EN": {
+      "maxLength": 160,
+      "required": true,
+      "type": "text"
     }
   }
 }

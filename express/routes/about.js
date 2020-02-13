@@ -25,17 +25,23 @@ router.get('/', function(req, res, next) {
 	fetch({
 	  query: `{
 	  	pages {
-			Texte_A_Propos_`+ LNG + `
+			Texte_A_Propos_`+ LNG + `,
+	  		Image_Accueil {
+	  			url
+	  		}
 	  	}
 	  }`,
 	}).then(gqlres => {
-		gqlres.data.pages[0].Texte_A_Propos = md.render(gqlres.data.pages[0]['Texte_A_Propos_' + LNG]);
+		page = gqlres.data.pages[0];
+		page.Texte_A_Propos = md.render(page['Texte_A_Propos_' + LNG]);
+
 		res.render('about', {
-			pages: gqlres.data.pages[0],
+			pages: page,
 			config: config,
 			activePage: "about",
 			locales: locales,
-			locale: res.locals.locale
+			locale: res.locals.locale,
+			website: page
 		});
 	});
 });

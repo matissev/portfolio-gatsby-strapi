@@ -10,6 +10,8 @@ var logger = require('morgan');
 
 var locales = require('./locales/locales');
 
+var sitemapRouter = require('./sitemap');
+
 var homeRouter = require('./routes/home');
 var projectsRouter = require('./routes/projects');
 var aboutRouter = require('./routes/about');
@@ -43,6 +45,8 @@ detectLanguage = function (req, res, next) {
 
 	next();
 };
+
+app.use("/sitemap.xml", sitemapRouter);
 
 app.use(locales.en.route + locales.en.home.route, detectLanguage, homeRouter);
 app.use(locales.fr.home.route, detectLanguage, homeRouter);

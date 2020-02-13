@@ -26,21 +26,27 @@ router.get('', function(req, res, next) {
 	  query: `{
 	  	pages {
 			Texte_Accueil_` + LNG + `,
-	  		Image_Accueil {
-	  			url
-	  		}
-	  	}
+			Titre_Img_Accueil_` + LNG + `,
+			Description_Img_Accueil_` + LNG + `,
+			Image_Accueil {
+				url
+			}
+		},
 	  }`,
 	}).then(gqlres => {
 		var page = gqlres.data.pages[0];
 		
 		page.Texte_Accueil = md.render(page['Texte_Accueil_' + LNG]);
+		page.Titre_Img_Accueil = page['Titre_Img_Accueil_' + LNG];
+		page.Description_Img_Accueil = page['Description_Img_Accueil_' + LNG];
+
 		res.render('home', {
 			home: page,
 			config: config,
 			activePage: "home",
 			locales: locales,
-			locale: res.locals.locale
+			locale: res.locals.locale,
+			website: page
 		});
 	});
 });

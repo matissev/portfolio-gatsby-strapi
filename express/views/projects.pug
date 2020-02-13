@@ -8,5 +8,5 @@ block content
 					h2= project.Titre
 					span.category= project.categorie.Nom
 					if project.Image
-						img.projectThumbnail(src=config.hostName+project.Image.url)
+						img.projectThumbnail.lazy(data-src=config.hostName+project.Image.url alt=project.Description_Img title=project.Titre_Img)
 	.project-overlay

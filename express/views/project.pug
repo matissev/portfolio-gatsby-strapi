@@ -64,8 +64,8 @@ block content
 					.swiper-slide
 						if slide.type === "video"
 							.videoPlayer
-								video
-									| #{slide.name}
+								video.lazy(data-src=src="http://mbp-matisse.local:1337"+slide.url)
+									| #{slide.title}
 									source(src="http://mbp-matisse.local:1337"+slide.url type="video/mp4")
 									| Your browser does not support the video tag.
 								.videoControlsWrapper
@@ -88,7 +88,7 @@ block content
 											input.volumeSlider(type="range" value="0.8" min="0" max="1" step="0.01")
 						if slide.type === "image"
 							figure
-								img(src=config.hostName+slide.url alt=slide.alt title=slide.title)
+								img.swiper-lazy(data-src=config.hostName+slide.url alt=slide.alt title=slide.title)
 								figcaption= slide.title
 						if slide.type === "html"
 							.textContent

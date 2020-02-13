@@ -28,6 +28,36 @@
     },
     "Texte_A_Propos_EN": {
       "type": "text"
+    },
+    "Titre_Img_Accueil_FR": {
+      "maxLength": 64,
+      "type": "string",
+      "required": true
+    },
+    "Titre_Img_Accueil_EN": {
+      "maxLength": 64,
+      "type": "string",
+      "required": true
+    },
+    "Description_Img_Accueil_FR": {
+      "maxLength": 125,
+      "required": true,
+      "type": "string"
+    },
+    "Description_Img_Accueil_EN": {
+      "maxLength": 125,
+      "required": true,
+      "type": "string"
+    },
+    "Description_Site_FR": {
+      "required": true,
+      "maxLength": 160,
+      "type": "text"
+    },
+    "Description_Site_EN": {
+      "maxLength": 160,
+      "required": true,
+      "type": "text"
     }
   }
 }

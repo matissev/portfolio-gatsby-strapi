@@ -28,19 +28,30 @@ router.get('/', function(req, res, next) {
 	  		Slug_` + LNG + `,
 	  		Titre_` + LNG + `,
 	  		categorie {
-	  			Nom
+	  			Nom_` + LNG + `
 	  		},
 	  		Image {
+	  			url
+	  		},
+			Description_Img_` + LNG + `,
+			Titre_Img_` + LNG + `
+	  	},
+	  	pages {
+	  		Image_Accueil {
 	  			url
 	  		}
 	  	}
 	  }`,
 	}).then(gqlres => {
 		var projets = gqlres.data.projets;
+		var website = gqlres.data.pages[0];
 
 		for (var i = 0; i < projets.length; i++) {
 			projets[i].Slug = projets[i]['Slug_' + LNG];
 			projets[i].Titre = projets[i]['Titre_' + LNG];
+			projets[i].Description_Img = projets[i]['Description_Img_' + LNG];
+			projets[i].Titre_Img = projets[i]['Titre_Img_' + LNG];
+			projets[i].categorie.Nom = projets[i].categorie["Nom_" + LNG];
 		}
 
 		res.render('projects', {
@@ -48,7 +59,8 @@ router.get('/', function(req, res, next) {
 			config: config,
 			activePage: "projects",
 			locales: locales,
-			locale: res.locals.locale
+			locale: res.locals.locale,
+			website: website
 		});
 	});
 
@@ -71,8 +83,9 @@ router.get('/:id', function(req, res, next) {
 	  	projets(where: {Slug_` + LNG + ` : "`+ req.params.id +`" }) {
 	  		` + allLngSlugsQuery + `
 	  		Titre_` + LNG + `,
+	  		Description_` + LNG + `,
 			categorie {
-	  			Nom` + LNG + `
+	  			Nom_` + LNG + `
 	  		},
 	  		Audio {
 	  			url,
@@ -105,6 +118,7 @@ router.get('/:id', function(req, res, next) {
 
 		projet.Slug = projet["Slug_" + LNG];
 		projet.Titre = projet["Titre_" + LNG];
+		projet.Description = projet["Description_" + LNG];
 		projet.categorie.Nom = projet.categorie["Nom_" + LNG];
 
 		projet.Contenu = markdownRender(projet["Contenu_" + LNG]);
@@ -114,8 +128,7 @@ router.get('/:id', function(req, res, next) {
 			config: config,
 			activePage: "project",
 			locales: locales,
-			locale: res.locals.locale,
-			noLangPath: res.locals.noLangPath
+			locale: res.locals.locale
 		});
 	});
 
@@ -142,16 +155,23 @@ function markdownRender(markdown) {
 		for (var i = 0; i < slides.length; i++) {
 			var foundVideos = slides[i].match(/§\[.*\]\(.*\)/g);
 			var foundImages = slides[i].match(/!\[.*\]\(.*\)/g);
+			var title;
 
 			if(foundVideos) {
+				title = foundVideos[0].match(/\".*\"/);
+				foundVideos[0] = foundVideos[0].replace(/\".*\"/, "");
+				title = title ? title[0].slice(1,-1) : "";
+
 				// If any video has been found, take the first one and create a slide
 				slides[i] = {
 					type: "video",
-					name: foundVideos[0].match(/\[.*\]/)[0].slice(1,-1),
+					title: title,
+					desc: foundVideos[0].match(/\[.*\]/)[0].slice(1,-1),
 					url: foundVideos[0].match(/\(.*\)/)[0].slice(1,-1)
 				};
 			} else if (foundImages) {
-				var title = foundImages[0].match(/\".*\"/);
+				title = foundImages[0].match(/\".*\"/);
+				foundImages[0] = foundImages[0].replace(/\".*\"/, "");
 				title = title ? title[0].slice(1,-1) : "";
 
 				// If any image has been found, take the first one and create a slide

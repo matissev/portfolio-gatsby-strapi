@@ -31,12 +31,25 @@ router.get('/', function(req, res, next) {
 		locales[locale].matchingRoute = locales[locale].route + locales[locale].contact.route;
 	}
 
-	res.render('contact', {
-		responses: {},
-		activePage: "contact",
-		config: config,
-		locales: locales,
-		locale: res.locals.locale
+	fetch({
+	  query: `
+	  	pages {
+	  		Image_Accueil {
+	  			url
+	  		}
+	  	}
+	  }`,
+	}).then(gqlres => {
+		var website = gqlres.data.pages[0];
+
+		res.render('contact', {
+			responses: {},
+			activePage: "contact",
+			config: config,
+			locales: locales,
+			locale: res.locals.locale,
+			website: website
+		});
 	});
 });
 

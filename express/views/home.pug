@@ -3,5 +3,6 @@ extends layout
 block content
 	.home-page
 		.landing-description !{home.Texte_Accueil}
-		a(href="/projects")
-			img(src=config.hostName+home.Image_Accueil.url)
+		if home.Image_Accueil.url
+			a(href=locale.route + locale.projects.route)
+				img.lazy(data-src=config.hostName+home.Image_Accueil.url alt=home.Description_Img_Accueil title=home.Titre_Img_Accueil)
