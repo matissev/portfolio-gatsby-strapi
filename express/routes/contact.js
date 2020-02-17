@@ -25,6 +25,7 @@ const fetch = createApolloFetch({
 
 /* GET contact page. */
 router.get('/', function(req, res, next) {
+	var LNG = res.locals.locale.LNG;
 	var locales = res.locals.locales;
 
 	for (var locale in locales) {
@@ -32,20 +33,27 @@ router.get('/', function(req, res, next) {
 	}
 
 	fetch({
-	  query: `
+	  query: `{
 	  	pages {
+	  		Description_Site_` + LNG + `,
+	  		Description_Img_Accueil_` + LNG + `,
 	  		Image_Accueil {
 	  			url
-	  		}
+	  		},
+			Lien_Linkedin,
+			Lien_Instagram
 	  	}
 	  }`,
 	}).then(gqlres => {
 		var website = gqlres.data.pages[0];
 
+		website.Description_Img_Accueil = website['Description_Img_Accueil_' + LNG];
+		website.Description_Site = website['Description_Site_' + LNG];
+
 		res.render('contact', {
+			config: config,
 			responses: {},
 			activePage: "contact",
-			config: config,
 			locales: locales,
 			locale: res.locals.locale,
 			website: website
@@ -55,6 +63,9 @@ router.get('/', function(req, res, next) {
 
 // https://www.youtube.com/watch?v=8DgJJuxWA3o&list=PLqkA8i556jh96bPL9neuaN8Wx_VLGLNDT&index=15
 router.post('/', function(req, res, next) {
+	var locales = res.locals.locales;
+	var LNG = res.locals.locale.LNG;
+
 	var responses = {
 		success : false,
 		invalidEmail : false,
@@ -75,6 +86,8 @@ router.post('/', function(req, res, next) {
 
 	if(!formErrors.length) {
 		var recipients = [];
+		
+		console.log(LNG);
 
 		fetch({
 		  query: `{
@@ -90,20 +103,43 @@ router.post('/', function(req, res, next) {
 
 			if(recipients.length) {
 				sendMail(req.body, recipients, function(result){
-					if(result === 'error') {
-						if(req.body.ajax) {
-							return res.send(['failure']); // AJAX
+					if(req.body.ajax) { // AJAX
+						if(result === 'error') {
+							return res.send(['failure']);
 						} else {
-							responses.failure = true; // ONLY IF THE MAIL ERRORS
-							res.render('contact', {responses: responses});
+							return res.status(200).send(['success']); // AJAX
 						}
 					} else {
-						if(req.body.ajax) {
-							return res.status(200).send(['success']); // AJAX
+						if(result === 'error') {
+							responses.failure = true; // ONLY IF THE MAIL ERRORS
 						} else {
 							responses.success = true; // STANDARD QUERY
-							res.render('contact', {responses: responses});
 						}
+
+						fetch({
+						  query: `{
+						  	pages {
+						  		Description_Site_` + LNG + `,
+						  		Description_Img_Accueil_` + LNG + `,
+						  		Image_Accueil {
+						  			url
+						  		}
+						  	}
+						  }`,
+						}).then(gqlres2 => {
+							var website = gqlres2.data.pages[0];
+							website.Description_Img_Accueil = website['Description_Img_Accueil_' + LNG];
+							website.Description_Site = website['Description_Site_' + LNG];
+
+							res.render('contact', {
+								responses: responses,
+								config: config,
+								activePage: "contact",
+								locales: locales,
+								locale: res.locals.locale,
+								website: website
+							});
+						});
 					}
 				});
 			}

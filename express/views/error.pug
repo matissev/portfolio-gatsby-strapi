@@ -1,6 +1,13 @@
 extends layout
+include ./mixins/head.pug
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+	main
+		if error.status === 404
+			h2= locale[activePage].title
+			p= locale[activePage].response
+			a(href=locale.route + locale.home.route)= locale[activePage].textLink
+		else
+			h1= message
+			h2= error.status
+			pre #{error.stack}

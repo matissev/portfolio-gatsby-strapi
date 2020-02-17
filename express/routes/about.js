@@ -26,22 +26,28 @@ router.get('/', function(req, res, next) {
 	  query: `{
 	  	pages {
 			Texte_A_Propos_`+ LNG + `,
+			Description_Img_Accueil_` + LNG + `,
+			Description_Site_` + LNG + `,
 	  		Image_Accueil {
 	  			url
-	  		}
+	  		},
+			Lien_Linkedin,
+			Lien_Instagram
 	  	}
 	  }`,
 	}).then(gqlres => {
-		page = gqlres.data.pages[0];
-		page.Texte_A_Propos = md.render(page['Texte_A_Propos_' + LNG]);
+		website = gqlres.data.pages[0];
+
+		website.Texte_A_Propos = md.render(website['Texte_A_Propos_' + LNG]);
+		website.Description_Img_Accueil = website['Description_Img_Accueil_' + LNG];
+		website.Description_Site = website['Description_Site_' + LNG];
 
 		res.render('about', {
-			pages: page,
 			config: config,
 			activePage: "about",
 			locales: locales,
 			locale: res.locals.locale,
-			website: page
+			website: website
 		});
 	});
 });

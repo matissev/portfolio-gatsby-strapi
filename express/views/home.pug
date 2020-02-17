@@ -1,8 +1,9 @@
 extends layout
+include ./mixins/head.pug
 
-block content
-	.home-page
-		.landing-description !{home.Texte_Accueil}
-		if home.Image_Accueil.url
+append content
+	main.home-page
+		.landing-description !{website.Texte_Accueil}
+		if website.Image_Accueil.url
 			a(href=locale.route + locale.projects.route)
-				img.lazy(data-src=config.hostName+home.Image_Accueil.url alt=home.Description_Img_Accueil title=home.Titre_Img_Accueil)
+				img.lazy(data-src=config.mediashostName+website.Image_Accueil.url alt=website.Description_Img_Accueil title=website.Titre_Img_Accueil)

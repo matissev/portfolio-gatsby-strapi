@@ -97,7 +97,7 @@ function buildSitemap(smStream, data) {
 
 			if(pages[p] === "home") {
 				pageObject.img = [{
-					url: data.pages[0].Image_Accueil.url,
+					url: config.mediashostName + data.pages[0].Image_Accueil.url,
 					caption: data.pages[0]["Description_Img_Accueil_" + locales[locale].LNG],
 					title: data.pages[0]["Titre_Img_Accueil_" + locales[locale].LNG]
 				}];
@@ -129,14 +129,14 @@ function buildSitemap(smStream, data) {
 			var medias = extractMedias(data.projets[0]["Contenu_" + locales[locale].LNG]);
 
 			pageObject.img.push({
-				url: data.projets[p].Image.url,
+				url: config.mediashostName + data.projets[p].Image.url,
 				caption: data.projets[p]["Description_Img_" + locales[locale].LNG],
 				title: data.projets[p]["Titre_Img_" + locales[locale].LNG]
 			});
 
 			for (var image in medias.images) {
 				pageObject.img.push({
-					url: medias.images[image].url,
+					url: config.mediashostName + medias.images[image].url,
 					caption: medias.images[image].alt,
 					title: medias.images[image].title
 				});
@@ -144,10 +144,10 @@ function buildSitemap(smStream, data) {
 
 			for (var video in medias.videos) {
 				pageObject.video.push({
-					content_loc: config.hostName + medias.videos[video].url,
+					content_loc: config.mediashostName + medias.videos[video].url,
 					description: medias.videos[video].desc,
 					title: medias.videos[video].title,
-					thumbnail_loc: config.hostName + data.projets[p].Image.url
+					thumbnail_loc: config.mediashostName + data.projets[p].Image.url
 				});
 			}
 

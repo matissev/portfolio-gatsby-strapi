@@ -37,14 +37,21 @@ router.get('/', function(req, res, next) {
 			Titre_Img_` + LNG + `
 	  	},
 	  	pages {
+	  		Description_Site_` + LNG + `,
+	  		Description_Img_Accueil_` + LNG + `,
 	  		Image_Accueil {
 	  			url
-	  		}
+	  		},
+			Lien_Linkedin,
+			Lien_Instagram
 	  	}
 	  }`,
 	}).then(gqlres => {
 		var projets = gqlres.data.projets;
 		var website = gqlres.data.pages[0];
+
+		website.Description_Img_Accueil = website['Description_Img_Accueil_' + LNG];
+		website.Description_Site = website['Description_Site_' + LNG];
 
 		for (var i = 0; i < projets.length; i++) {
 			projets[i].Slug = projets[i]['Slug_' + LNG];
@@ -95,11 +102,15 @@ router.get('/:id', function(req, res, next) {
 	  		Image {
 	  			url
 	  		},
+	  		Titre_Img_` + LNG + `,
+	  		Description_Img_` + LNG + `,
 	  		Audio {
 	  			url
 	  		},
 	  		Contenu_` + LNG + `,
-	  		Annee
+	  		Annee,
+	  		createdAt,
+	  		updatedAt
 	  	}
 	  }`,
 	}).then(gqlres => {
@@ -122,6 +133,13 @@ router.get('/:id', function(req, res, next) {
 		projet.categorie.Nom = projet.categorie["Nom_" + LNG];
 
 		projet.Contenu = markdownRender(projet["Contenu_" + LNG]);
+
+		projet.Contenu.unshift({
+			type: "image",
+			title: projet["Titre_Img_" + LNG],
+			alt: projet["Description_Img_" + LNG],
+			url: projet.Image.url
+		});
 
 		res.render('project', {
 			project: projet,

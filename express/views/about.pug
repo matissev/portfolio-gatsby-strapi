@@ -1,5 +1,6 @@
 extends layout
+include ./mixins/head.pug
 
 block content
-	.about-page
-		.about-description !{pages.Texte_A_Propos}
+	main.about-page
+		.about-description !{website.Texte_A_Propos}

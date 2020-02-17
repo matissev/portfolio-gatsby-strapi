@@ -1,8 +1,9 @@
 extends layout
+include ./mixins/head.pug
 
 block content
-	.contact-page
-		form.contact-form(method='post' action='contact' onsubmit='return submitEnquiry(this);' autocomplete='on')
+	main.contact-page
+		form.contact-form(method='post' action='contact' autocomplete='on')
 			input.action(type='hidden', name='action', value='contact')
 			.field
 				label(for='name') #{locale.contact.form.name}

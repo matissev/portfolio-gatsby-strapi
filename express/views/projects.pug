@@ -1,12 +1,13 @@
 extends layout
+include ./mixins/head.pug
 
 block content
-	.projects-page
+	main.projects-page
 		each project in projects
 			a.project(href=locale.route + locale.projects.route + "/" + project.Slug)
 				article
 					h2= project.Titre
 					span.category= project.categorie.Nom
 					if project.Image
-						img.projectThumbnail.lazy(data-src=config.hostName+project.Image.url alt=project.Description_Img title=project.Titre_Img)
+						img.projectThumbnail.lazy(data-src=config.mediashostName+project.Image.url alt=project.Description_Img title=project.Titre_Img)
 	.project-overlay

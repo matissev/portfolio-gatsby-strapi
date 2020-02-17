@@ -74,12 +74,14 @@ function css() {
 function jsProd() {
 	var scripts = JSON.parse(fs.readFileSync(paths.js + '/_compile.json', { encoding: 'utf8' }));
 
-	return scripts.forEach(function(obj){
-		return src(obj.src)
+	scripts.forEach(function(obj){
+		src(obj.src)
 			.pipe(concat(obj.name))
 			.pipe(uglify())
 			.pipe(dest(paths.js));
 	});
+
+	return Promise.resolve('the value is ignored');
 }
 
 function cssProd() {
@@ -95,5 +97,9 @@ function cssProd() {
 /* GLOBALS == GLOBALS == GLOBALS == GLOBALS == GLOBALS == GLOBALS == GLOBALS == GLOBALS */
 /* ==================================================================================== */
 
+exports.js = js;
+exports.css = css;
+exports.cssProd = cssProd;
+exports.jsProd = jsProd;
 exports.default = parallel(js, css);
 exports.prod = parallel(jsProd, cssProd);

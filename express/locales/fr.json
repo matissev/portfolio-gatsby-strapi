@@ -1,6 +1,7 @@
 {
 	"lng": "fr",
 	"LNG": "FR",
+	"lng_CNTRY": "fr_FR",
 	"route": "",
 	"language": "Français",
 	"home": {
@@ -36,5 +37,10 @@
 				"missingFields": "Erreur&nbsp;: Des champs requis n’ont pas été remplis."
 			}
 		}
+	},
+	"error": {
+		"title": "Erreur 404",
+		"response": "Cette page n'a pas l'air d'exister. S'il vous plaît vérifiez l'adresse. Sinon, vous pouvez toujours revenir à la page d'accueil.",
+		"textLink": "Retour à la page d'accueil"
 	}
 }

@@ -1,6 +1,7 @@
 {
 	"lng": "en",
 	"LNG": "EN",
+	"lng_CNTRY": "en_GB",
 	"route": "/en",
 	"language": "English",
 	"home": {
@@ -36,5 +37,10 @@
 				"missingFields": "Error&#8239;: All fields are required."
 			}
 		}
+	},
+	"error": {
+		"title": "Error 404",
+		"response": "This webpage doesn't seem to exist. Please verify the address. Otherwise, you can still go back to the home page.",
+		"textLink": "Reach home page"
 	}
 }

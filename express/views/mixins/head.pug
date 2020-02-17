@@ -1,38 +1,83 @@
 
-head
-	- console.log(config);
-	- var pageTitle = config.websiteName;
-	- var pageDescription = "";
+block head
+	head
+		meta(charset='utf-8')
+		meta(name='viewport' content='width=device-width, initial-scale=1')
+		link(rel='stylesheet' href='/stylesheets/style.css')
+		meta(name="theme-color" content="#FFFFFF")
+		meta(name="robots" content="NOODP")
+		link(rel="dns-prefetch" href=config.mediashostName)
+		link(rel="prefetch" href="/fonts/TwCenMT-Italic.woff2")
+		link(rel="prefetch" href="/fonts/TwCenMT-Bold.woff2")
+		link(rel="prefetch" href="/fonts/TwCenMT-BoldItalic.woff2")
+		link(rel="prefetch" href="/fonts/TwCenMT-Regular.woff2")
+		meta(http-equiv="Content-Security-Policy" content="default-src 'self' data:; img-src " + config.mediashostName + " 'self'; media-src " + config.mediashostName)
 
-	if activePage === "project"
-		- pageTitle += " | " + project.Titre;
-		- pageDescription += project.Description;
-	else if locale[activePage].title.length
-		- pageTitle += " | " + locale[activePage].title
+		//- //- Icon in the highest resolution we need it for
+		//- link(rel="icon" sizes="192x192" href="/path/to/icon.png")
+		//- //- Apple Touch Icon (reuse 192px icon.png)
+		//- link(rel="apple-touch-icon" href="/path/to/apple-touch-icon.png")
+		//- //- Safari Pinned Tab Icon
+		//- link(rel="mask-icon" href="/path/to/icon.svg" color="blue")
+
+		each lang in locales
+			link(rel="alternate" href=lang.matchingRoute hreflang=lang.lng)
+
+		//- meta(name="google-site-verification" content="verification_token")
+
+		- var pageTitle = config.websiteName;
+		- var pageDescription = "";
+
+		if activePage === "project"
+			- pageTitle += " | " + project.Titre;
+		else if locale[activePage].title.length
+			- pageTitle += " | " + locale[activePage].title;
+
+		if activePage === "project"
+			- pageDescription += project.Description;
+		else if activePage !== "error"
+			- pageDescription += website.Description_Site;
 
 
-	title= pageTitle
-	meta(name="description" content=pageDescription)
+		title= pageTitle
+		meta(name="description" content=pageDescription)
+		meta(name="author" content=config.websiteName)
 
-	
-	// Facebook
-	meta(property="og:type" content=dataType)
-	meta(property="og:title" content=pageTitle)
-	meta(property="og:description" content=pageDescription)
-	if activePage === "project"
-		meta(property="og:url" content=config.hostName+locale.route+locale.projects.route+"/"+project.Slug)
-		meta(property="og:image" content=config.hostName+project.Image.url)
-	else
-		meta(property="og:url" content=config.hostName+locale.route+locale[activePage].route)
-		meta(property="og:image" content=config.hostName+project.Image.url)
-	
+		if activePage !== "error"
+			// Facebook
+			if activePage === "project"
+				meta(property="og:type" content="article")
+				meta(property="article:published_time" content=project.createdAt)
+				meta(property="article:modified_time" content=project.updatedAt)
+				meta(property="article:author" content=config.websiteName)
+				meta(property="article:section" content=locale.projects.title)
+			else
+				meta(property="og:type" content="website")
+			meta(property="og:title" content=pageTitle)
+			meta(property="og:description" content=pageDescription)
+			each lang in locales
+				if locale.lng_CNTRY === lang.lng_CNTRY
+					meta(property="og:locale" content=lang.lng_CNTRY)
+				else
+					meta(property="og:locale:alternate" content=lang.lng_CNTRY)
 
-	// Twitter
-	//- meta(name="twitter:card" content="summary")
-	//- meta(name="twitter:title" content=pageTitle)
-	//- meta(name="twitter:description" content=pageDescription)
-	//- meta(name="twitter:url" content=url)
-	//- meta(name="twitter:image" content=image)
+			if activePage === "project"
+				meta(property="og:url" content=config.hostName+locale.route+locale.projects.route+"/"+project.Slug)
+				meta(property="og:image" content=config.mediashostName+project.Image.url)
+			else
+				meta(property="og:url" content=config.hostName+locale.route+locale[activePage].route)
+				meta(property="og:image" content=config.mediashostName+website.Image_Accueil.url)
+			
 
-	meta(name='viewport' content='width=device-width, initial-scale=1')
-	link(rel='stylesheet', href='/stylesheets/style.css')
+			// Twitter
+			meta(name="twitter:card" content="summary")
+			meta(name="twitter:title" content=pageTitle)
+			meta(name="twitter:description" content=pageDescription)
+			if activePage === "project"
+				meta(name="twitter:url" content=config.hostName+locale.route+locale.projects.route+"/"+project.Slug)
+				meta(name="twitter:image" content=config.mediashostName+project.Image.url)
+				meta(name="twitter:image:alt" content=)
+			else
+				meta(name="twitter:url" content=config.hostName+locale.route+locale[activePage].route)
+				meta(name="twitter:image" content=config.mediashostName+website.Image_Accueil.url)
+				meta(name="twitter:image:alt" content=website.Description_Img_Accueil)

@@ -58,6 +58,12 @@
       "maxLength": 160,
       "required": true,
       "type": "text"
+    },
+    "Lien_Linkedin": {
+      "type": "string"
+    },
+    "Lien_Instagram": {
+      "type": "string"
     }
   }
 }

@@ -1,8 +1,7 @@
 
-
 doctype html
 html
-	include ./mixins/head.pug
+	block head
 	body
 		//- .grid
 			.cols
@@ -41,5 +40,12 @@ html
 					li
 						a(href=locale.route + locale.contact.route class=(activePage == 'contact' ? 'active' : null)) #{locale.contact.title}
 		block content
+		if activePage === "about" || activePage === "contact"
+			footer.pageFooter
+				if website.Lien_Linkedin.length
+					a(href=website.Lien_Linkedin target="_blank") LinkedIn
+				if website.Lien_Instagram.length
+					a(href=website.Lien_Instagram target="_blank") Instagram
+
 		block js
-			script(type="application/javascript" src="/javascripts/bundle.min.js")
+			script(type="application/javascript" src="/javascripts/bundle.min.js" async)

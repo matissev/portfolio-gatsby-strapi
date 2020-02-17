@@ -28,25 +28,28 @@ router.get('', function(req, res, next) {
 			Texte_Accueil_` + LNG + `,
 			Titre_Img_Accueil_` + LNG + `,
 			Description_Img_Accueil_` + LNG + `,
+	  		Description_Site_` + LNG + `,
 			Image_Accueil {
 				url
-			}
-		},
+			},
+			Lien_Linkedin,
+			Lien_Instagram
+		}
 	  }`,
 	}).then(gqlres => {
-		var page = gqlres.data.pages[0];
+		var website = gqlres.data.pages[0];
 		
-		page.Texte_Accueil = md.render(page['Texte_Accueil_' + LNG]);
-		page.Titre_Img_Accueil = page['Titre_Img_Accueil_' + LNG];
-		page.Description_Img_Accueil = page['Description_Img_Accueil_' + LNG];
+		website.Texte_Accueil = md.render(website['Texte_Accueil_' + LNG]);
+		website.Titre_Img_Accueil = website['Titre_Img_Accueil_' + LNG];
+		website.Description_Img_Accueil = website['Description_Img_Accueil_' + LNG];
+		website.Description_Site = website['Description_Site_' + LNG];
 
 		res.render('home', {
-			home: page,
 			config: config,
 			activePage: "home",
 			locales: locales,
 			locale: res.locals.locale,
-			website: page
+			website: website
 		});
 	});
 });

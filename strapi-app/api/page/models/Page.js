@@ -1,10 +1,28 @@
 'use strict';
 
+const http = require('http');
+
+const options = {
+  hostname: 'express',
+  port: 3000,
+  path: '/clearcache',
+  method: 'POST'
+};
+
 /**
  * Lifecycle callbacks for the `Page` model.
  */
 
 module.exports = {
+  afterUpdate: async model => {
+    const req = http.request(options);
+
+    req.on('error', (error) => {
+      console.error(error)
+    })
+
+    req.end()
+  }
   // Before saving a value.
   // Fired before an `insert` or `update` query.
   // beforeSave: async (model) => {},
