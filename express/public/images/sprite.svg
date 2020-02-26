@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+<style type="text/css">
+	.st0{fill:#180504;}
+	.st1{fill:#848484;}
+</style>
+	<symbol id="volume" viewBox="0 0 11.52 15.5">
+		<polygon class="st0" points="9.2,1.73 6.39,4.19 2.32,4.19 2.32,7.75 2.32,7.75 2.32,7.75 2.32,11.31 6.39,11.31 9.2,13.77"/>
+	</symbol>
+	<symbol id="prev" viewBox="0 0 15.11 20.56">
+		<polygon class="st0" points="12.5,3.44 4.6,8.9 4.6,3.44 2.6,3.44 2.6,17.12 4.6,17.12 4.6,11.66 12.5,17.12 "/>
+	</symbol>
+	<symbol id="next" viewBox="0 0 15.11 20.56">
+		<polygon class="st0" points="2.6,17.12 10.5,11.66 10.5,17.12 12.5,17.12 12.5,3.44 10.5,3.44 10.5,8.9 2.6,3.44"/>
+	</symbol>
+	<symbol id="tracklist" viewBox="0 0 13.2 9.66">
+		<rect y="8.36" class="st1" width="13.2" height="1"/>
+		<rect y="5.67" class="st1" width="13.2" height="1"/>
+		<rect y="2.98" class="st1" width="13.2" height="1"/>
+		<rect y="0.29" class="st1" width="13.2" height="1"/>
+	</symbol>
+	<symbol id="play" viewBox="0 0 26.71 34.04">
+		<polygon class="st0" points="23.68,17.02 3.89,3.34 3.89,30.7"/>
+	</symbol>
+	<symbol id="pause" viewBox="0 0 26.71 34.04">
+		<rect x="8.03" y="7.53" class="st0" width="3.55" height="18.98"/>
+		<rect x="15.13" y="7.53" class="st0" width="3.55" height="18.98"/>
+	</symbol>
+	<symbol id="back-button" viewBox="0 0 8.5 16.84">
+		<polygon points="6.26,15.73 1.11,8.42 6.26,1.12 6.88,1.55 2.03,8.42 6.88,15.29"/>
+	</symbol>
+</svg>

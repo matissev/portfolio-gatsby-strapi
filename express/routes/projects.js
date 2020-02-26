@@ -17,9 +17,10 @@ const fetch = createApolloFetch({
 router.get('/', function(req, res, next) {
 	var LNG = res.locals.locale.LNG;
 	var locales = res.locals.locales;
+	var locale = res.locals.locale;
 
-	for (var locale in locales) {
-		locales[locale].matchingRoute = locales[locale].route + locales[locale].projects.route;
+	for (var onelocale in locales) {
+		locales[onelocale].matchingRoute = locales[onelocale].route + locales[onelocale].projects.route;
 	}
 
 	fetch({
@@ -66,7 +67,7 @@ router.get('/', function(req, res, next) {
 			config: config,
 			activePage: "projects",
 			locales: locales,
-			locale: res.locals.locale,
+			locale: locale,
 			website: website
 		});
 	});
@@ -78,11 +79,12 @@ router.get('/', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
 	var LNG = res.locals.locale.LNG;
 	var locales = res.locals.locales;
+	var locale = res.locals.locale;
 
 	var allLngSlugsQuery = "";
 
-	for (var locale in locales) {
-		allLngSlugsQuery += `Slug_` + locales[locale].LNG + `,`;
+	for (var onelocale in locales) {
+		allLngSlugsQuery += `Slug_` + locales[onelocale].LNG + `,`;
 	}
 
 	fetch({
@@ -116,8 +118,8 @@ router.get('/:id', function(req, res, next) {
 	}).then(gqlres => {
 		var projet = gqlres.data.projets[0];
 
-		for (var locale in locales) {
-			locales[locale].matchingRoute = locales[locale].route + locales[locale].projects.route + "/" + projet["Slug_" + locales[locale].LNG];
+		for (var onelocale in locales) {
+			locales[onelocale].matchingRoute = locales[onelocale].route + locales[onelocale].projects.route + "/" + projet["Slug_" + locales[onelocale].LNG];
 		}
 
 		// This suppresses the file extension of all audio files
@@ -146,7 +148,7 @@ router.get('/:id', function(req, res, next) {
 			config: config,
 			activePage: "project",
 			locales: locales,
-			locale: res.locals.locale
+			locale: locale
 		});
 	});
 

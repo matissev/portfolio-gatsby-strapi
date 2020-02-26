@@ -27,9 +27,10 @@ const fetch = createApolloFetch({
 router.get('/', function(req, res, next) {
 	var LNG = res.locals.locale.LNG;
 	var locales = res.locals.locales;
+	var locale = res.locals.locale;
 
-	for (var locale in locales) {
-		locales[locale].matchingRoute = locales[locale].route + locales[locale].contact.route;
+	for (var onelocale in locales) {
+		locales[onelocale].matchingRoute = locales[onelocale].route + locales[onelocale].contact.route;
 	}
 
 	fetch({
@@ -64,7 +65,12 @@ router.get('/', function(req, res, next) {
 // https://www.youtube.com/watch?v=8DgJJuxWA3o&list=PLqkA8i556jh96bPL9neuaN8Wx_VLGLNDT&index=15
 router.post('/', function(req, res, next) {
 	var locales = res.locals.locales;
+	var locale = res.locals.locale;
 	var LNG = res.locals.locale.LNG;
+
+	for (var onelocale in locales) {
+		locales[onelocale].matchingRoute = locales[onelocale].route + locales[onelocale].contact.route;
+	}
 
 	var responses = {
 		success : false,
@@ -136,7 +142,7 @@ router.post('/', function(req, res, next) {
 								config: config,
 								activePage: "contact",
 								locales: locales,
-								locale: res.locals.locale,
+								locale: locale,
 								website: website
 							});
 						});

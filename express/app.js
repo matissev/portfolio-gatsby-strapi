@@ -37,7 +37,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var onlyGet = (req, res) => req.method === 'GET';
-// app.use(cache('15 days', onlyGet));
+app.use(cache('15 days', onlyGet));
 
 app.use(compression());
 

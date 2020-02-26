@@ -1,0 +1,133 @@
+
+.project-overlay {
+	display: grid;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease-out;
+
+	&.show {
+		pointer-events: auto;
+		opacity: 1;
+	}
+}
+
+.projects-page {
+	// background-color: green;
+	display: grid;
+	grid-column-gap: 1rem;
+	grid-row-gap: 4rem;
+	grid-template-columns: repeat(12, 1fr);
+	text-transform: uppercase;
+
+	.project {
+		grid-column: span 4;
+		line-height: 2rem;
+
+		& > article > img {
+			filter: brightness(1);
+			transition: filter 0.3s ease-in-out;
+		}
+
+		&:hover > article > img {
+			filter: brightness(0.8);
+		}
+
+		img {
+			display: block;
+			width: 100%;
+			object-fit: cover;
+			height: 20rem;
+		}
+
+		h2 {
+			font-weight: bold;
+			font-size: 1.3rem;
+			margin: -0.4rem 0 0 0;
+		}
+
+		.category{
+			display: inline-block;
+			font-size: 1rem;
+			margin-left: 2rem;
+			margin-bottom: 0.4rem;
+
+			&:before {
+				font-size: 1.3rem;
+				content: "[";
+			}
+
+			&:after {
+				font-size: 1.3rem;
+				content: "]";
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1650px), screen and (max-device-width: 1650px) {
+	.projects-page .project img {
+		height: 18rem;
+	}
+}
+
+@media screen and (max-width: 1350px), screen and (max-device-width: 1350px) {
+	.projects-page .project img {
+		height: 15rem;
+	}
+}
+
+@media screen and (max-width: 1150px), screen and (max-device-width: 1150px) {
+	.projects-page .project img {
+		height: 13rem;
+	}
+}
+
+@media screen and (max-width: 1050px), screen and (max-device-width: 1050px) {
+	.projects-page .project {
+		grid-column: span 6;
+
+		img {
+			height: 17rem;
+		}
+	}
+}
+
+@media screen and (max-width: 850px), screen and (max-device-width: 850px) {
+	.projects-page .project img {
+		height: 14rem;
+	}
+}
+
+@media screen and (max-width: 750px), screen and (max-device-width: 750px) {
+	.projects-page .project {
+		grid-column: span 12;
+
+		img {
+			height: 25rem;
+		}
+	}
+}
+
+@media screen and (max-width: 650px), screen and (max-device-width: 650px) {
+	.projects-page .project img {
+		height: 22rem;
+	}
+}
+
+@media screen and (max-width: 550px), screen and (max-device-width: 550px) {
+	.projects-page .project img {
+		height: 19rem;
+	}
+}
+
+@media screen and (max-width: 450px), screen and (max-device-width: 450px) {
+	.projects-page .project img {
+		height: 16rem;
+	}
+}
+
+@media screen and (max-width: 350px), screen and (max-device-width: 350px) {
+	.projects-page .project img {
+		height: 13rem;
+	}
+}

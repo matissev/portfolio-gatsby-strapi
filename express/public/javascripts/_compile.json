@@ -1,0 +1,13 @@
+[{
+	"name": "bundle.min.js",
+	"src": [
+		"public/javascripts/libs/isMobile.js",
+		"public/javascripts/libs/lazyload.js",
+		"public/javascripts/utilities.js",
+		"public/javascripts/libs/swiper.js",
+		"public/javascripts/slides.js",
+		"public/javascripts/audioplayer.js",
+		"public/javascripts/videoplayer.js",
+		"public/javascripts/mail.js"
+	]
+}]

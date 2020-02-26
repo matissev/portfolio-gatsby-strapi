@@ -14,12 +14,13 @@ const fetch = createApolloFetch({
 });
 
 /* GET home page. */
-router.get('', function(req, res, next) {
+router.get('/', function(req, res, next) {
 	var LNG = res.locals.locale.LNG;
 	var locales = res.locals.locales;
+	var locale = res.locals.locale;
 
-	for (var locale in locales) {
-		locales[locale].matchingRoute = locales[locale].route + locales[locale].home.route;
+	for (var onelocale in locales) {
+		locales[onelocale].matchingRoute = locales[onelocale].route + locales[onelocale].home.route;
 	}
 
 	fetch({
@@ -44,14 +45,75 @@ router.get('', function(req, res, next) {
 		website.Description_Img_Accueil = website['Description_Img_Accueil_' + LNG];
 		website.Description_Site = website['Description_Site_' + LNG];
 
+		// buildJsonLd(website, locale);
+
 		res.render('home', {
 			config: config,
 			activePage: "home",
 			locales: locales,
-			locale: res.locals.locale,
+			locale: locale,
 			website: website
 		});
 	});
 });
+
+function buildJsonLd(website, locale) {
+	var jsonLd = [{
+		"@context": "http://schema.org",
+		"@type": "Person",
+		"givenName": "Lundja",
+		"familyName": "Medjoub",
+		"workLocation": {
+			"@type": "Place",
+			"address": {
+				"@type": "PostalAddress",
+				"addressCountry": "France",
+				"addressLocality": "Paris",
+				"addressRegion" : "île de France",
+				"postalCode" : "75000"
+			}
+		},
+		"jobTitle": "Designer Sonore",
+		"knowsAbout": "Design sonore, Design d'espace, Identité de marque, Multi-canal",
+		"makesOffer": {
+			"@type": "Offer",
+			"businessFunction": {
+				"@type": "BusinessFunction",
+				"name": "Design Sonore"
+			},
+			"itemOffered": {
+				"@type": "Service",
+				"serviceType": ["Identité sonore", "Installation", "Audio-guide"]
+			}
+		},
+
+		// About
+		"alumniOf": [{
+			"@type": "EducationalOrganization",
+			"alternateName": "ESAD TALM",
+			"legalName": "École supérieure d'art et de design",
+			"url": "https://esad-talm.fr/fr/talm/talm-le-mans"
+		}, {
+			"@type": "EducationalOrganization",
+			"alternateName": "ESADSE",
+			"legalName": "École Supérieure d'Art et Design de Saint-Étienne",
+			"url": "https://www.esadse.fr/"
+		}],
+		"memberOf": [{
+			"@type": "Organization",
+			"legalName": "Petit Pont",
+			"url": "https://petitpont.co/"
+		}],
+
+		// Contact
+		"contactPoint": {
+			"url": "THISPAGE"
+		}
+	}, {
+		// HOME
+		"@context": "http://schema.org",
+		"@type": "WebSite"
+	}];
+}
 
 module.exports = router;

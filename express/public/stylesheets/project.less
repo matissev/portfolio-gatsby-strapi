@@ -1,0 +1,752 @@
+
+
+.project-page.interactive {
+	box-sizing: border-box;
+	position: fixed;
+	width: 95%;
+	height: 100%;
+	padding-top: 7rem;
+	top: 0;
+	left: 2.5%;
+	display: grid;
+	grid-column-gap: 1rem;
+	grid-row-gap: 4rem;
+	grid-template-columns: repeat(12, 1fr);
+	align-content: start;
+	background: white;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
+}
+
+
+.project-page.interactive {
+	.backButton {
+		justify-self: end;
+		align-self: start;
+		margin-right: 30px;
+
+		span {
+			.assistive-hide();
+		}
+
+		svg {
+			height: 3.2rem;
+			width: 2rem;
+		}
+	}
+
+	.audioPlayer {
+		width: 100%;
+		grid-column-start: 8;
+		grid-column-end: 12;
+		position: relative;
+	}
+
+	.projectHeader {
+		grid-column-start: 2;
+		grid-column-end: 6;
+		line-height: 1rem;
+		text-transform: uppercase;
+
+		time {
+			display: block;
+			font-size: 1.5rem;
+			margin: 0.1rem 0 0 0;
+		}
+
+		h2 {
+			font-size: 2rem;
+			margin: 0.8rem 0 0 0;
+		}
+
+		.category {
+			font-size: 1.3rem;
+			text-transform: uppercase;
+			margin: 1.1rem 0 0 2rem;
+
+			&:before {
+				font-size: 1.7rem;
+				content: "[";
+			}
+
+			&:after {
+				font-size: 1.7rem;
+				content: "]";
+			}
+		}
+	}
+}
+
+.project-page.interactive .swiper-container {
+	grid-column-gap: 1rem;
+	grid-column-start: 2;
+	grid-column-end: 12;
+	position: absolute;
+	top: 16rem;
+	left: 0;
+	right: 0;
+	bottom: 4rem;
+	overflow: visible;
+	min-height: 500px;
+
+	.swiper-button-prev, .swiper-button-next {
+		margin: 0;
+		z-index: 1;
+		cursor: w-resize;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		height: 100%;
+		width: 50%;
+
+		&:focus {
+			outline: none;
+		}
+
+		&:after {
+			content: "";
+		}
+	}
+
+	.swiper-button-next {
+		cursor: e-resize;
+		left: 50%;
+	}
+
+	.swiper-pagination {
+		bottom: -4rem;
+		padding-bottom: 1.5rem;
+	}
+
+
+	.swiper-wrapper {
+		z-index: 8;
+		pointer-events: none;
+		// box-sizing: border-box;
+		// border: 1px solid black;
+		// width: 100%;
+		// height: 100%;
+
+		.swiper-slide {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			width: 100%;
+			height: 100%;
+			transition: transform 0.5s ease-out, opacity 0.3s ease-in;
+
+			.videoPlayer, video, img {
+				display: block;
+				object-fit: contain;
+				width: 100%;
+				height: 100%;
+			}
+
+			img {
+				background: transparent;
+			}
+
+			figure {
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				display: block;
+
+				figcaption {
+					.assistive-hide();
+				}
+			}
+		}
+
+		.swiper-slide:not(.swiper-slide-active) {
+			pointer-events: none;
+			opacity: 0;
+		}
+	}
+}
+
+.project-page .textContent {
+	display: grid;
+	grid-column-gap: 1rem;
+	grid-row-gap: 1rem;
+	grid-template-columns: repeat(10, 1fr);
+
+	p, h2, ul, ol {
+		grid-column-start: 3;
+		grid-column-end: 9;
+		margin: 0;
+		padding: 0;
+	}
+
+	p {
+		font-size: 1.5rem;
+		line-height: 2.6rem;
+	}
+
+	h2 {
+		font-size: 1.2rem;
+		text-transform: uppercase;
+	}
+
+	ul {
+		padding-left: 3rem;
+	}
+
+	li {
+		margin: 0;
+		font-size: 1.2rem;
+		line-height: 2rem;
+		list-style: none;
+	}
+}
+
+.project-page .videoPlayer, .project-page .audioPlayer {
+	button, progress {
+		cursor: pointer;
+	}
+
+	button {
+		color: white;
+		background: transparent;
+		border-radius: 0;
+		border: none;
+		width: 30px;
+		height: 30px;
+		margin-left: 5px;
+
+		span {
+			.assistive-hide();
+		}
+	}
+
+	.icon {
+		display: block;
+		margin: 0;
+		width: 2em;
+		height: 2em;
+	}
+
+	.durationBar {
+		margin-top: 0.5rem;
+		progress {
+			display: block;
+			width: 100%;
+			-webkit-appearance: none;
+			appearance: none;
+			height: 0.3rem;
+
+			&::-webkit-progress-bar {
+				background: #EFEFEF;
+			}
+
+			&::-webkit-progress-value {
+				background: black;
+			}
+		}
+
+		small {
+			margin-top: 0.35rem;
+		}
+
+		.currentTime {
+			float: left;
+		}
+
+		.endTime {
+			float: right;
+		}
+	}
+
+	.volume {
+		.clearfix();
+
+		.mute {
+			float: left;
+			padding: 0;
+			margin: 0 0.5rem 0 0;
+			height: 1rem;
+			width: 1rem;
+			background: transparent;
+
+			&.muted svg{
+				fill: silver;
+			}
+
+			.icon {
+				display: block;
+				height: 1.2rem;
+				width: 1.2rem;
+				margin-top: -0.1rem;
+				padding: 0;
+			}
+		}
+
+		.volumeSlider {
+			float: left;
+			-webkit-appearance: none;
+			cursor: pointer;
+			height: 1rem;
+			outline: none;
+			border: 0;
+			margin: 0;
+
+			&::-webkit-slider-thumb {
+				position: relative;
+				-webkit-appearance: none;
+				appearance: none;
+				background: black;
+				width: 0.7rem;
+				height: 0.7rem;
+				border-radius: 100%;
+				margin-top: -0.28rem;
+			}
+
+			&::-webkit-slider-runnable-track {
+				position: relative;
+				-webkit-appearance: none;
+				appearance: none;
+				background: black;
+				height: 2px;
+			}
+		}
+	}
+
+	.playback {
+		height: 1rem;
+
+		.playpause {
+			.playIcon {
+				position: relative;
+				display: none;
+			}
+
+			.pauseIcon {
+				display: block;
+			}
+
+			&.paused {
+				.playIcon {
+					display: block;
+				}
+				.pauseIcon {
+					display: none;
+				}
+			}
+		}
+
+		button {
+			height: 1rem;
+			width: 1rem;
+			padding: 0;
+			margin: 0;
+			display: block;
+			float: left;
+			svg {
+				margin-top: -0.1rem;
+				margin-left: -0.2rem;
+			}
+
+			&.playpause {
+				height: 2rem;
+				width: 2rem;
+				margin: -0.4rem 1rem 0 1rem;
+
+				svg {
+					width: 2rem;
+					height: 2rem;
+
+					&.playIcon {
+						margin-left: 0.05rem;
+					}
+				}
+			}
+		}
+	}
+}
+
+.project-page .audioPlayer {
+	.playingTrackName {
+		width: 100%;
+		text-transform: uppercase;
+		// text-align: center;
+		// margin: 0.7rem 0 0 0;
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.3rem;
+		font-weight: bold;
+	}
+
+	.generalControls {
+		position: relative;
+		z-index: 12;
+		width: 100%;
+		margin-top: 2rem;
+		height: 1rem;
+		// display: flex;
+		// justify-content: space-between;
+	}
+
+	.volume {
+		float: right;
+	}
+
+	.playback {
+		float: left;
+	}
+
+	.trackCount {
+		float: left;
+		position: relative;
+		display: block;
+		height: 1rem;
+		width: 1.5rem;
+		margin-left: 3rem;
+
+		svg {
+			width: 1rem;
+			margin-top: -0.4rem;
+			fill: silver;
+		}
+
+		small {
+			color: white;
+			position: absolute;
+			top: 0.5rem;
+			left: 0.5rem;
+			display: block;
+			width: 1.1rem;
+			height: 1.1rem;
+			background: silver;
+			border-radius: 100%;
+			text-align: center;
+			line-height: 1.3rem;
+		}
+	}
+
+	.tracklist {
+		.assistive-hide();
+
+		margin: 0;
+		padding: 4rem 0 1rem 0;
+		width: 100%;
+		opacity: 0;
+		z-index: 11;
+		transition: opacity 0.3s ease-in;
+		background: white;
+
+		.track {
+			position: relative;
+			color: black;
+			box-sizing: border-box;
+			display: block;
+			width: 100%;
+			height: 2rem;
+			counter-increment: track_counter;
+			font-size: 1rem;
+
+			a {
+				box-sizing: border-box;
+				position: relative;
+				z-index: 13;
+				display: block;
+				width: 100%;
+				height: 100%;
+				padding: 0 1rem 0 1rem;
+				line-height: 2rem;
+
+				.duration {
+					float: right;
+				}
+			}
+
+			&.selectedTrack:before {
+				content: "▸ " counter(track_counter) ".";
+			}
+
+			&:before {
+				position: relative;
+				z-index: 11;
+				content: counter(track_counter) ".";
+				float: left;
+				margin-right: 5px;
+				line-height: 2rem;
+				margin-left: 1rem;
+			}
+
+			&:not(:last-child):after {
+				content: "";
+				z-index: 11;
+				position: absolute;
+				left: 1rem;
+				bottom: 0;
+				right: 1rem;
+				border-bottom: 1px solid black;
+			}
+		}
+	}
+
+	&:hover .tracklist {
+		.assistive-show();
+		opacity: 1;
+		position: relative;
+	}
+}
+
+.project-page .videoControlsWrapper {
+	// pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	grid-column-gap: 1rem;
+	.clearfix();
+}
+
+.project-page .swiper-container .swiper-button-prev:hover,
+.project-page .swiper-container .swiper-button-next:hover {
+	&~.swiper-wrapper .videoControls {
+		// pointer-events: initial;
+
+		.assistive-show();
+		opacity: 1;
+		position: absolute;
+
+		// .volume, .volumeSlider {
+		// 	pointer-events: initial;
+		// 	opacity: 1;
+		// 	.assistive-show();
+		// }
+	}
+}
+
+.isMobile .project-page .swiper-container {
+	pointer-events: initial;
+	.swiper-wrapper {
+		pointer-events: initial;
+	}
+
+	.swiper-button-prev, .swiper-button-next {
+		display: none;
+	}
+
+	.videoControlsWrapper {
+		display: none;
+	}
+}
+
+.project-page .videoPlayer {
+	.videoControls {
+		.assistive-hide();
+		opacity: 0;
+		transition: opacity 0.3s ease-in;
+
+		&:hover {
+			.assistive-show();
+			opacity: 1;
+			position: absolute;		
+		}
+
+		pointer-events: initial;
+		z-index: 10;
+		position: absolute;
+		bottom: 3rem;
+		width: 100%;
+		grid-column-start: 3;
+		grid-column-end: 9;
+		box-sizing: border-box;
+		display: flex;
+		background: white;
+		height: 3rem;
+		padding: 1rem 1rem 0 1rem;
+		border-radius: 0.3rem;
+
+		.playback {
+			float: left;
+		}
+
+		.volume {
+			padding: 0 2rem 0 1rem;
+			float: left;
+
+			.volumeSlider {
+				width: 3rem;
+			}
+		}
+
+		.durationBar {
+			display: flex;
+			margin-top: 0.1rem;
+			flex-grow: 1;
+
+			.currentTime {
+				margin-top: 0;
+				float: left;
+				width: 40px;
+			}
+
+			.endTime {
+				margin-top: 0;
+				order: 2;
+				width: 40px;
+				text-align: right;
+			}
+
+			progress {
+				margin-top: 0.2rem;
+				order: 1;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1560px), screen and (max-device-width: 1560px) {
+	.project-page.interactive {
+		.audioPlayer {
+			grid-column-start: 7;
+		}
+	}
+}
+
+@media screen and (max-width: 1280px), screen and (max-device-width: 1280px) {
+	.project-page.interactive {
+		.backButton {
+			display: none;
+			margin-right: 0;
+			justify-self: left;
+		}
+		.textContent {
+			p, h2, ul, ol {
+				grid-column-start: 2;
+				grid-column-end: 10;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1100px), screen and (max-device-width: 1100px) {
+	.project-page.interactive {
+		.audioPlayer {
+			grid-column-start: 6;
+		}
+	}
+}
+
+@media screen and (max-width: 950px), screen and (max-device-width: 950px) {
+	.project-page.interactive {
+		.textContent {
+			p, h2, ul, ol {
+				grid-column-start: 1;
+				grid-column-end: 11;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 750px), screen and (max-device-width: 750px) {
+	.project-page.interactive {
+		position: initial;
+		width: 100%;
+		height: auto;
+		grid-row-gap: 4rem;
+		padding-top: 0;
+		overflow: auto;
+		overflow-x: hidden;
+
+
+		.swiper-container {
+			grid-row-start: 1;
+			position: relative;
+			top: 0;
+			bottom: 0;
+			height: 20rem;
+			min-height: initial;
+			grid-column-start: 1;
+			grid-column-end: 13;
+			width: 100%;
+
+			.videoControlsWrapper {
+				grid-template-columns: repeat(12, 1fr);
+			}
+
+			.videoPlayer .videoControls {
+				grid-column-start: 1;
+				grid-column-end: 13;
+			}
+		}
+
+		.textContent {
+			grid-template-columns: repeat(12, 1fr);
+
+			p, h2, ul, ol {
+				grid-column-start: 2;
+				grid-column-end: 12;
+			}
+
+			p, li {
+				font-size: 1rem;
+				line-height: 1.5rem;
+			}
+
+			h2 {
+				font-size: 0.8rem;
+			}
+
+			ul {
+				padding-left: 0;
+			}
+		}
+
+		.projectHeader {
+			text-align: center;
+			grid-column-start: 1;
+			grid-column-end: 13;
+
+			time {
+				font-size: 0.6rem;
+			}
+
+			h2 {
+				font-size: 1.2rem;
+			}
+
+			.category {
+				font-size: 0.9rem;
+				margin-left: 0;
+
+				&:before, &:after {
+					font-size: 1rem;
+				}
+			}
+		}
+
+		.audioPlayer {
+			grid-column-start: 1;
+			grid-column-end: 13;
+			.tracklist {
+				position: initial;
+				opacity: 1;
+				.assistive-show();
+
+				.track {
+					&:before {
+						margin-left: 0;
+					}
+
+					&:after {
+						left: 0;
+						right: 0;
+					}
+
+					a {
+						padding: 0;
+					}
+				}
+			}
+		}
+	}
+}

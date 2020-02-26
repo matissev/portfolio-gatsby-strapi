@@ -17,9 +17,10 @@ const fetch = createApolloFetch({
 router.get('/', function(req, res, next) {
 	var LNG = res.locals.locale.LNG;
 	var locales = res.locals.locales;
+	var locale = res.locals.locale;
 
-	for (var locale in locales) {
-		locales[locale].matchingRoute = locales[locale].route + locales[locale].about.route;
+	for (var onelocale in locales) {
+		locales[onelocale].matchingRoute = locales[onelocale].route + locales[onelocale].about.route;
 	}
 
 	fetch({
@@ -46,7 +47,7 @@ router.get('/', function(req, res, next) {
 			config: config,
 			activePage: "about",
 			locales: locales,
-			locale: res.locals.locale,
+			locale: locale,
 			website: website
 		});
 	});
