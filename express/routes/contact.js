@@ -20,7 +20,7 @@ var transporter = nodemailer.createTransport({
 const { createApolloFetch } = require('apollo-fetch');
 
 const fetch = createApolloFetch({
-  uri: 'http://strapi:1337/graphql',
+  uri: 'http://localhost:1337/graphql',
 });
 
 /* GET contact page. */

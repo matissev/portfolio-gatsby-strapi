@@ -7,7 +7,7 @@ const locales = require('./locales/locales');
 const { createApolloFetch } = require('apollo-fetch');
 
 const fetch = createApolloFetch({
-  uri: 'http://strapi:1337/graphql',
+  uri: 'http://localhost:1337/graphql',
 });
 
 const { SitemapStream, streamToPromise } = require('sitemap');
