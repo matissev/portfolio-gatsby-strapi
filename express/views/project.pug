@@ -65,9 +65,9 @@ block content
 						.swiper-slide
 							if slide.type === "video"
 								.videoPlayer
-									video.lazy(data-src=src="http://mbp-matisse.local:1337"+slide.url)
+									video.lazy(data-src=src="http://mbp-matisse.local:8023"+slide.url)
 										| #{slide.title}
-										source(src="http://mbp-matisse.local:1337"+slide.url type="video/mp4")
+										source(src="http://mbp-matisse.local:8023"+slide.url type="video/mp4")
 										| Your browser does not support the video tag.
 									.videoControlsWrapper
 										.videoControls.swiper-no-swiping
